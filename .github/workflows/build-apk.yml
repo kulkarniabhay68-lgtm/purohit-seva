@@ -1,4 +1,4 @@
-name: Build Purohit Seva APK V7
+name: Build Purohit Seva APK V8
 
 on:
   workflow_dispatch:
@@ -29,7 +29,7 @@ jobs:
 
       - name: Extract Android project
         run: |
-          unzip -q purohit-seva-mobile-apk-pack-v7-smooth.zip -d pack
+          unzip -q purohit-seva-mobile-apk-pack-v8-smooth.zip -d pack
           unzip -q pack/purohit-seva-android-project.zip
 
       - name: Enable AndroidX
@@ -46,5 +46,5 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: purohit-seva-debug-apk
+          name: purohit-seva-v8-debug-apk
           path: purohit-seva-android/app/build/outputs/apk/debug/app-debug.apk
