@@ -1,0 +1,3014 @@
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta name="application-name" content="पुरोहित सेवा">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#32170e">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="पुरोहित सेवा">
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icons/icon-192.png" type="image/png">
+<link rel="apple-touch-icon" href="/icons/icon-192.png">
+<title>पुरोहित सेवा</title>
+<meta name="description" content="पुरोहित सेवा — आजचे पंचांग आणि पूजा बुकिंग.">
+<style>
+:root{--bg:#fffaf2;--paper:#fff;--ink:#342418;--muted:#756250;--accent:#a84b15;--gold:#d19a35;--soft:#f7ead6;--line:#eadbc6;--dark:#382319;--nav:#fffaf2f5}
+body.dark{--bg:#181715;--paper:#242321;--ink:#eeeae4;--muted:#b8b3ab;--accent:#d88945;--gold:#d7ad67;--soft:#302d29;--line:#47443f;--dark:#12110f;--nav:#1c1b19f2}
+body.dark nav{background:var(--nav)}
+body.dark .panchang{background:linear-gradient(135deg,#211b17,#30241c)}
+body.dark .card,body.dark .calendar,body.dark .readbox,body.dark .form,body.dark .adminbox,body.dark .fact,body.dark .special,body.dark .calbtn,body.dark .day,body.dark .tab{background:var(--paper);color:var(--ink)}
+body.dark .auto-note,body.dark .admin-note{background:#2d231b;border-color:var(--line);color:var(--muted)}
+body.dark .city-select,body.dark .editor input,body.dark .editor textarea,body.dark .form input,body.dark .form select,body.dark .form textarea{background:#211b17;color:var(--ink);border-color:var(--line)}
+body.dark .day{background:#211b17}
+body.dark .day.selected{background:var(--accent);color:#fff}
+body.dark .admin{background:#1a1511;border-color:var(--line)}
+*{box-sizing:border-box}body{margin:0;font-family:"Noto Sans Devanagari","Nirmala UI",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.75}
+a{text-decoration:none;color:inherit}.top{background:var(--dark);color:#fff;text-align:center;padding:7px 14px;font-size:13px}
+nav{position:sticky;top:0;z-index:20;background:var(--nav);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+.navin{max-width:1180px;margin:auto;padding:13px 18px;display:flex;align-items:center;justify-content:space-between;gap:15px}.logo{font-size:21px;font-weight:900;color:var(--accent);white-space:nowrap}.logo small{display:block;font-size:10px;color:var(--muted);font-weight:500}.links{display:flex;gap:17px;font-size:13px;flex-wrap:wrap;justify-content:center}.links a:hover{color:var(--accent)}
+.btn{display:inline-block;border:0;border-radius:999px;padding:10px 18px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer}.btn.alt{background:var(--soft);color:var(--accent);box-shadow:none}
+.wrap{max-width:1180px;margin:auto}.hero{padding:34px 18px 24px}.hero h1{font-size:clamp(30px,4vw,50px);line-height:1.2;margin:10px 0}.hero p{color:var(--muted);max-width:760px}.badge{display:inline-block;background:var(--soft);color:var(--accent);padding:4px 12px;border-radius:99px;font-weight:800;font-size:12px}
+.panchang{margin:8px 18px 35px;background:linear-gradient(135deg,#fff,#f7ead6);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:0 18px 45px #6b3a1510}
+.phead{display:flex;align-items:center;justify-content:space-between;gap:20px}.sun-date{display:flex;align-items:center;gap:14px;margin-bottom:8px}.sun-icon{font-size:48px}.big-date{font-size:34px;font-weight:900;line-height:1.15;color:var(--accent)}.big-week{font-size:22px;font-weight:900}.city-select{border:1px solid var(--line);border-radius:9px;padding:5px 8px;background:#fff;color:var(--ink);font:inherit}.auto-note{margin-top:12px;padding:10px 13px;background:#fff8eb;border:1px solid #edd5ac;border-radius:12px;font-size:12px;color:var(--muted)}.phead h2{margin:0;font-size:27px}.location{color:var(--muted);font-size:13px}.facts{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:18px}.fact{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px}.fact b{display:block;color:var(--accent);font-size:12px}.fact span{font-weight:800}
+.special{margin-top:14px;background:#fff;border-radius:16px;padding:13px;border:1px solid var(--line)}
+section{padding:55px 18px}.eyebrow{color:var(--accent);font-weight:900;font-size:12px;letter-spacing:.8px}.title{font-size:32px;margin:4px 0}.sub{color:var(--muted);max-width:720px}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:17px;margin-top:25px}.card{background:#fff;border:1px solid var(--line);border-radius:21px;padding:21px}.card:hover{box-shadow:0 14px 32px #6b3a1510}.icon{font-size:28px}.card h3{margin:6px 0}.card p{color:var(--muted);font-size:14px;margin:0}.read{margin-top:13px;display:inline-block;color:var(--accent);font-weight:900;font-size:14px}
+.readbox{background:#fff;border:1px solid var(--line);border-radius:24px;padding:25px;margin-top:25px;white-space:pre-wrap}.aarti-text{font-size:18px;line-height:2.1}
+.booking{background:var(--dark);color:#fff}.booking .sub{color:#ddcfc1}.form{background:#fff;color:var(--ink);border-radius:22px;padding:22px;display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:22px}.form label{font-size:13px;font-weight:800}.form input,.form select,.form textarea{width:100%;padding:11px;margin-top:5px;border:1px solid var(--line);border-radius:11px;font:inherit}.form textarea{min-height:85px}.full{grid-column:1/-1}
+.admin{background:#f4eadc;border-top:1px solid var(--line)}.adminbox{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}.admin-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.tab{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:800}.tab.active{background:var(--accent);color:#fff}.editor{display:grid;gap:12px}.editor input,.editor textarea{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit}.editor textarea{min-height:180px}.hint{font-size:12px;color:var(--muted)}.admin-note{background:#fff8eb;padding:12px;border-radius:12px;border:1px solid #edd5ac;font-size:13px}
+footer{background:#25170f;color:#d9c9b8;padding:35px 18px}.foot{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.small{font-size:12px;color:#bba999}
+
+.calendar{margin-top:20px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px}
+.calhead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.calhead h3{margin:0;font-size:20px}.calnav{display:flex;gap:7px}.calbtn{width:42px;height:42px;border:1px solid var(--line);background:#fff;border-radius:12px;cursor:pointer;font-size:18px}
+.calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.dow{text-align:center;color:var(--muted);font-size:12px;font-weight:800;padding:5px}.day{min-height:46px;border:1px solid transparent;background:#fffaf2;border-radius:12px;cursor:pointer;font:inherit;font-weight:800;color:var(--ink)}.day:hover{border-color:var(--gold)}.day.muted{opacity:.35}.day.today{outline:2px solid var(--gold)}.day.selected{background:var(--accent);color:#fff}.day.hasdata:after{content:"";display:block;width:5px;height:5px;border-radius:50%;background:var(--gold);margin:2px auto 0}
+@media(max-width:850px){.links{display:none}.facts{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr 1fr}.form{grid-template-columns:1fr}.full{grid-column:auto}}
+@media(max-width:520px){.grid{grid-template-columns:1fr}.phead{display:block}.facts{grid-template-columns:1fr 1fr}.hero{padding-top:22px}.title{font-size:27px}}
+
+body,.card,.calendar,.readbox,.form,.adminbox,.fact,.special,.auto-note,.admin-note,.tab,.day,.city-select,.editor input,.editor textarea,.form input,.form select,.form textarea,nav{
+  transition:background-color .25s ease,color .25s ease,border-color .25s ease;
+}
+.appearance-btn.compact-theme-btn{
+  min-width:76px;
+  width:76px;
+  height:38px;
+  padding:4px 8px;
+  border:1px solid var(--line);
+  border-radius:999px;
+  background:var(--paper);
+  color:var(--ink);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:7px;
+  cursor:pointer;
+  box-shadow:0 1px 2px rgba(0,0,0,.05);
+}
+.appearance-btn.compact-theme-btn:hover{background:var(--soft)}
+.appearance-btn.compact-theme-btn .appearance-icon{font-size:18px;width:auto}
+.appearance-btn.compact-theme-btn .appearance-copy{display:block;line-height:1}
+.appearance-btn.compact-theme-btn .appearance-copy small{
+  font-size:12px;
+  color:var(--ink);
+  margin:0;
+  white-space:nowrap;
+}
+@media(max-width:700px){
+  .appearance-btn.compact-theme-btn{min-width:68px;width:68px;height:36px}
+}
+@media(max-width:700px){
+  .appearance-btn{min-width:158px}
+  .appearance-menu{right:0;width:220px}
+}
+
+.saved-songs{display:flex;flex-direction:column;gap:8px;margin-top:10px}.saved-song{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--soft);color:var(--ink);text-decoration:none;font-weight:600}.saved-song.disabled{opacity:.6}
+
+.field-label{display:block;font-weight:700;color:var(--ink);margin:10px 0 6px}
+.song-settings-title{margin-top:16px;padding:12px 14px;border-radius:12px;background:var(--soft);border:1px solid var(--line);font-weight:800;color:var(--ink)}
+.saved-song-row{display:flex;gap:8px;align-items:center;margin-top:8px}
+.saved-song-row .saved-song{flex:1}
+.song-delete{width:44px;height:44px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer}
+
+
+.playlist-list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.playlist-item{display:flex;align-items:center;gap:8px;padding:7px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.playlist-play{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--accent);color:#fff;text-decoration:none;font-size:18px;flex:none}
+.playlist-name{flex:1;color:var(--ink);text-decoration:none;font-weight:700;padding:8px 4px}
+.playlist-name:hover{text-decoration:underline}
+.song-delete{width:42px;height:42px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);cursor:pointer}
+
+
+.dashboard{background:radial-gradient(circle at 85% 5%,#fff0c8 0,transparent 28%),var(--bg)}.hero{padding-top:22px}.hero-card{position:relative;overflow:hidden;display:grid;grid-template-columns:1fr 160px;align-items:center;gap:20px;padding:34px;border-radius:30px;background:linear-gradient(135deg,#fff,#fff0d7);border:1px solid var(--line);box-shadow:0 20px 55px rgba(108,65,20,.12)}.hero-card h1{margin:10px 0;font-size:clamp(31px,4.5vw,54px);line-height:1.18}.hero-card h1 span{color:var(--accent)}.hero-card p{color:var(--muted);max-width:700px}.hero-om{font-size:125px;text-align:center;color:var(--gold)}.hero-actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}.quick{padding-top:18px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:15px}.quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:18px}.quick-card{padding:17px;border:1px solid var(--line);border-radius:20px;background:var(--paper);display:flex;flex-direction:column;gap:3px;transition:.2s;box-shadow:0 7px 22px rgba(80,45,15,.05)}.quick-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 14px 30px rgba(80,45,15,.10)}.quick-card span{font-size:29px}
+.quick-card b{font-size:16px}.quick-card small{font-size:12px;color:var(--muted)}.p-actions{display:flex;gap:8px;flex-wrap:wrap}.playlist-hero{display:grid;grid-template-columns:1fr 130px;gap:20px;align-items:center;background:linear-gradient(135deg,#fff,#f9ead4);border:1px solid var(--line);border-radius:25px;padding:22px;margin-top:18px}.playlist-hero h3{margin:0}.playlist-icon{font-size:80px;text-align:center}.playlist-form{display:grid;grid-template-columns:1fr 1.3fr auto;gap:8px;margin-top:14px}.playlist-form input{min-width:0;padding:11px 13px;border:1px solid var(--line);border-radius:12px;font:inherit;background:var(--paper);color:var(--ink)}.playlist-panel{margin-top:15px}.playlist-panel-head{display:flex;align-items:center;justify-content:space-between;gap:10px}.playlist-panel-head h3{margin:0}@media(max-width:900px){.quick-grid{grid-template-columns:repeat(2,1fr)}.hero-card{grid-template-columns:1fr 90px}.hero-om{font-size:85px}}@media(max-width:620px){.hero-card{grid-template-columns:1fr;padding:24px}.hero-om{display:none}.quick-grid{grid-template-columns:1fr 1fr}.playlist-hero{grid-template-columns:1fr}.playlist-icon{display:none}.playlist-form{grid-template-columns:1fr}.section-head{display:block}.section-head .hint{display:block;margin-top:5px}}
+/* ===== PREMIUM PUROHIT SEVA DESIGN ===== */
+:root{
+  --bg:#fff9f0; --paper:#fffdf9; --ink:#2d1b12; --muted:#766254;
+  --accent:#9f3f10; --gold:#d7a33a; --soft:#fff0d5; --line:#ead7bc;
+  --dark:#32170e; --nav:#fffaf4eF;
+}
+body{
+  background:
+    radial-gradient(circle at 8% 0%, rgba(255,214,137,.20), transparent 24%),
+    radial-gradient(circle at 92% 10%, rgba(187,69,20,.10), transparent 25%),
+    var(--bg);
+}
+.top{
+  background:linear-gradient(90deg,#30150c,#6e2c12,#30150c);
+  letter-spacing:.2px;
+}
+nav{
+  box-shadow:0 5px 25px rgba(65,31,9,.07);
+}
+.navin{padding-top:11px;padding-bottom:11px}
+.logo{
+  position:relative;
+  text-shadow:0 1px 0 #fff;
+}
+.links a{
+  position:relative;
+  padding:5px 2px;
+}
+.links a:not(.btn)::after{
+  content:"";position:absolute;left:0;right:0;bottom:0;height:2px;
+  transform:scaleX(0);transform-origin:center;background:var(--gold);
+  transition:.2s ease;
+}
+.links a:not(.btn):hover::after{transform:scaleX(1)}
+
+.dashboard{overflow:hidden}
+.hero{padding-top:28px;padding-bottom:18px}
+.hero-card{
+  min-height:360px;
+  background:
+    radial-gradient(circle at 88% 20%,rgba(255,210,102,.42),transparent 18%),
+    radial-gradient(circle at 75% 90%,rgba(173,58,13,.10),transparent 25%),
+    linear-gradient(135deg,#fffdf9 0%,#fff2da 55%,#ffe6bd 100%);
+  border:1px solid rgba(176,115,35,.22);
+  box-shadow:0 28px 70px rgba(93,48,12,.15);
+}
+.hero-card:before,.hero-card:after{
+  content:"";position:absolute;border:1px solid rgba(169,103,25,.20);
+  border-radius:50%;pointer-events:none;
+}
+.hero-card:before{width:270px;height:270px;right:-105px;top:-105px}
+.hero-card:after{width:180px;height:180px;right:-60px;bottom:-80px}
+.hero-card h1{letter-spacing:-.7px}
+.hero-card p{font-size:16px}
+.hero-om{
+  filter:drop-shadow(0 10px 20px rgba(130,73,16,.12));
+  animation:omFloat 4s ease-in-out infinite;
+}
+@keyframes omFloat{50%{transform:translateY(-7px) scale(1.03)}}
+.btn{
+  box-shadow:0 8px 18px rgba(128,54,12,.16);
+  transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
+}
+.btn:hover{transform:translateY(-2px);box-shadow:0 12px 25px rgba(128,54,12,.22)}
+.btn.alt{border:1px solid rgba(170,112,35,.18)}
+
+.quick{padding-top:25px;padding-bottom:35px}
+.section-head{margin-bottom:4px}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11px;letter-spacing:1.1px;text-transform:uppercase;
+}
+.eyebrow:before{
+  content:"";width:24px;height:2px;background:var(--gold);display:inline-block;border-radius:9px
+}
+.title{font-weight:950;letter-spacing:-.4px}
+.quick-grid{gap:14px}
+.quick-card{
+  position:relative;overflow:hidden;min-height:116px;
+  background:linear-gradient(145deg,var(--paper),#fff7e9);
+  border-color:rgba(168,104,29,.18);
+}
+.quick-card:after{
+  content:"";position:absolute;width:70px;height:70px;border-radius:50%;
+  right:-30px;bottom:-30px;background:rgba(215,163,58,.10)
+}
+.quick-card span{filter:drop-shadow(0 3px 5px rgba(90,40,10,.12))}
+.quick-card b{font-weight:900}
+.quick-card small{line-height:1.45}
+
+.panchang{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(circle at 100% 0%,rgba(215,163,58,.18),transparent 25%),
+    linear-gradient(135deg,#fffdf9,#fff1d9);
+  box-shadow:0 20px 55px rgba(93,48,12,.11);
+}
+.panchang:before{
+  content:"ॐ";position:absolute;right:25px;bottom:-48px;font-size:180px;
+  color:rgba(159,63,16,.045);font-weight:900;pointer-events:none
+}
+.fact{
+  box-shadow:0 6px 18px rgba(82,43,11,.045);
+  transition:.18s ease;
+}
+.fact:hover{transform:translateY(-2px);border-color:rgba(215,163,58,.65)}
+.special{box-shadow:0 7px 20px rgba(82,43,11,.04)}
+
+section{position:relative}
+section:not(.panchang):not(.booking):not(.admin):after{
+  content:"✦";position:absolute;left:50%;bottom:2px;transform:translateX(-50%);
+  color:rgba(168,104,29,.35);font-size:14px
+}
+.service-grid .card,.grid .card{
+  position:relative;overflow:hidden;
+  background:linear-gradient(145deg,var(--paper),#fffaf1);
+  box-shadow:0 10px 28px rgba(74,39,12,.055);
+  transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease;
+}
+.service-grid .card:before,.grid .card:before{
+  content:"";position:absolute;left:0;top:0;width:42px;height:3px;
+  background:linear-gradient(90deg,var(--gold),transparent);border-radius:0 5px 5px 0
+}
+.service-grid .card:hover,.grid .card:hover{
+  transform:translateY(-5px);
+  border-color:rgba(215,163,58,.65);
+  box-shadow:0 18px 38px rgba(74,39,12,.11);
+}
+.icon{filter:drop-shadow(0 4px 5px rgba(75,35,10,.10))}
+
+.playlist-hero{
+  background:
+    radial-gradient(circle at 90% 20%,rgba(215,163,58,.20),transparent 25%),
+    linear-gradient(135deg,#fffdf9,#fff0d7);
+  box-shadow:0 15px 40px rgba(82,43,11,.08)
+}
+.playlist-item{box-shadow:0 5px 14px rgba(70,35,10,.04)}
+.playlist-play{box-shadow:0 5px 12px rgba(128,54,12,.16)}
+
+.booking{
+  background:
+    radial-gradient(circle at 15% 20%,rgba(215,163,58,.15),transparent 22%),
+    radial-gradient(circle at 90% 80%,rgba(169,63,15,.18),transparent 24%),
+    linear-gradient(135deg,#29130b,#3b1b0e);
+}
+.booking .form{
+  box-shadow:0 25px 55px rgba(0,0,0,.22);
+  border:1px solid rgba(215,163,58,.22)
+}
+.admin{background:linear-gradient(180deg,#f5eadb,#f1e2cf)}
+footer{
+  background:
+    radial-gradient(circle at 50% -30%,rgba(215,163,58,.18),transparent 35%),
+    #24120b;
+}
+.foot strong{color:#f3d08c}
+
+.appearance-btn.compact-theme-btn{box-shadow:0 4px 12px rgba(50,25,10,.08)}
+@media(max-width:850px){
+  .navin{overflow-x:auto}
+  .logo{flex:none}
+  .links{display:flex;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;gap:13px;white-space:nowrap;max-width:55vw;padding-bottom:2px}
+  .links::-webkit-scrollbar{height:0}
+  .navin>.links + div{flex:none}
+}
+@media(max-width:620px){
+  .hero-card{min-height:0}
+  .quick-card{min-height:108px}
+  .panchang{margin-left:12px;margin-right:12px;border-radius:22px}
+  .hero{padding-left:12px;padding-right:12px}
+}
+body.dark{
+  background:
+    radial-gradient(circle at 8% 0%,rgba(185,116,42,.10),transparent 24%),
+    #171310;
+}
+body.dark .hero-card,
+body.dark .playlist-hero,
+body.dark .quick-card,
+body.dark .service-grid .card,
+body.dark .grid .card,
+body.dark .panchang{
+  background:linear-gradient(145deg,#29221d,#33261e);
+  border-color:#4c4037;
+}
+body.dark .hero-card{box-shadow:0 25px 60px rgba(0,0,0,.28)}
+body.dark .fact{box-shadow:none}
+
+
+.quick-option-grid{grid-template-columns:repeat(4,1fr)!important;margin-top:0!important}
+.quick-option-grid .temple-booking-card{min-height:110px;flex-direction:column;justify-content:center;text-align:center;padding:16px;border-radius:18px}
+.quick-option-grid .temple-booking-arrow{display:none}
+.quick-option-grid .temple-booking-icon{font-size:28px}
+.quick-option-grid .temple-booking-card small{margin-top:4px}
+@media(max-width:900px){.quick-option-grid{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:620px){.quick-option-grid{grid-template-columns:1fr!important}}
+
+.online-booking-popup{position:fixed;inset:0;z-index:10050;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;padding:18px}
+.online-booking-popup.show{display:flex}
+.online-booking-popup-box{width:min(900px,96vw);max-height:88vh;overflow:auto;background:var(--paper,#fff);border-radius:24px;padding:22px;box-shadow:0 25px 80px rgba(0,0,0,.25);position:relative}
+.online-booking-popup-close{position:absolute;right:14px;top:12px;border:0;background:transparent;font-size:24px;cursor:pointer}
+.online-booking-popup-title{font-size:22px;font-weight:900;margin:0 42px 4px 0}
+.online-booking-popup-sub{color:var(--muted);margin-bottom:16px}
+.online-booking-popup-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.online-booking-popup-grid .temple-booking-card{display:flex}
+@media(max-width:620px){.online-booking-popup-grid{grid-template-columns:1fr}}
+
+</style>
+<style id="temple-booking-20-style">
+.temple-booking-section{padding:28px 0}
+.temple-booking-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+.temple-booking-card{display:flex;align-items:center;gap:14px;padding:17px;border:1px solid var(--line);border-radius:20px;background:linear-gradient(145deg,var(--paper),#fff7e9);box-shadow:0 8px 24px rgba(80,45,15,.06);transition:.2s}
+.temple-booking-card:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 14px 30px rgba(80,45,15,.10)}
+.temple-booking-icon{font-size:30px;flex:0 0 auto}.temple-booking-card b{font-size:15px;display:block}.temple-booking-card small{font-size:12px;color:var(--muted);display:block}
+.temple-booking-arrow{margin-left:auto;font-size:20px;color:var(--accent)}
+.temple-booking-empty{padding:18px;border:1px dashed var(--line);border-radius:16px;color:var(--muted);background:var(--paper)}
+.temple-admin-row{display:grid;grid-template-columns:54px 1.2fr 1.8fr 90px 90px;gap:8px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:14px;background:var(--paper);margin-top:8px}
+.temple-admin-row input{margin:0!important}.temple-admin-row .temple-num{font-weight:900;color:var(--accent);text-align:center}
+.temple-admin-actions{display:flex;gap:6px;flex-wrap:wrap}.temple-admin-actions button{padding:8px 10px}
+@media(max-width:900px){.temple-booking-grid{grid-template-columns:repeat(2,1fr)}.temple-admin-row{grid-template-columns:40px 1fr;}.temple-admin-row input:nth-child(3){grid-column:1/-1}.temple-admin-actions{grid-column:1/-1}}
+@media(max-width:620px){.temple-booking-grid{grid-template-columns:1fr}}
+</style>
+
+
+<style id="booking-popup-style">
+.booking-popup{position:fixed;inset:0;background:rgba(20,10,5,.78);backdrop-filter:blur(6px);display:none;align-items:center;justify-content:center;padding:18px;z-index:9999}
+.booking-popup.show{display:flex}
+.booking-popup-box{width:min(760px,100%);max-height:92vh;overflow:auto;background:#fff;color:var(--ink);border-radius:24px;padding:22px;box-shadow:0 24px 70px rgba(0,0,0,.4);position:relative}
+.booking-popup-close{position:absolute;right:14px;top:12px;border:0;background:#f3e4d3;color:#6d260f;width:40px;height:40px;border-radius:50%;font-size:22px;font-weight:900;cursor:pointer}
+.booking-popup-title{font-size:25px;font-weight:900;color:#8b2e12;margin:2px 48px 5px 0}
+.booking-popup-sub{color:#765f50;margin-bottom:12px}
+.booking-popup .form{margin-top:8px}
+body.booking-popup-open{overflow:hidden}
+@media(max-width:650px){.booking-popup{padding:10px}.booking-popup-box{padding:17px;border-radius:20px}.booking-popup .form{grid-template-columns:1fr}.booking-popup .full{grid-column:1}}
+</style>
+
+
+
+<style id="admin-delete-working-note">
+.admin-delete-working-note{margin:10px 0;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--soft);font-size:12px;color:var(--muted)}
+</style>
+<style>
+.public-muhurat-month{padding:14px;margin-bottom:10px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,var(--soft),#fff8ee)}
+.public-muhurat-month-name{font-size:17px;font-weight:900;color:var(--accent);margin-bottom:7px}
+.public-muhurat-dates{font-size:15px;color:var(--ink);line-height:1.6}
+.public-muhurat-dates b{color:var(--accent)}
+.public-muhurat-empty{padding:14px;border-radius:12px;background:var(--soft);font-weight:800;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="top">🙏 श्रद्धा • संस्कार • ज्ञान • सेवा — आपल्या धार्मिक जीवनासाठी एकाच ठिकाणी
+</div>
+<nav><div class="navin">
+<a class="logo" href="#">🪔 पुरोहित सेवा<small>धार्मिक विधी • पंचांग • आरती • ज्ञान</small></a>
+
+<div style="display:flex;gap:8px;align-items:center"><button class="admin-login-nav" type="button" onclick="openAdminLogin()">🔐 Admin</button><button class="appearance-btn compact-theme-btn" type="button" id="appearanceBtn"
+  aria-label="दिवस / रात्र मोड" title="दिवस / रात्र मोड" onclick="toggleAppearance(event)">
+  <span class="appearance-icon" id="appearanceIcon">☼</span>
+  <span class="appearance-copy"><small id="appearanceValue">दिवस</small></span>
+</button></div></div></nav>
+
+<main class="dashboard">
+<section class="hero wrap"><div class="hero-card"><div><span class="badge" id="siteHeroBadge">🕉️ पुरोहित सेवा</span><h1 id="siteHeroTitle">धार्मिक सेवा, ज्ञान आणि भक्ती<br><span>एका सुंदर ठिकाणी.</span></h1><p id="siteHeroSub">आजचे पंचांग पाहा आणि पूजा सेवा निवडा.</p><div class="hero-actions"><a class="btn" href="#quick">✨ सर्व सेवा पहा</a></div></div><div class="hero-om">ॐ</div></div></section>
+<section id="quick" class="quick wrap"><div class="section-head"><div><div class="eyebrow">एक नजर</div><div class="title">🌺 वेबसाईटमधील सर्व पर्याय</div></div><span class="hint">थेट पर्याय निवडा</span></div><div class="quick-grid">
+<a id="quick-panchang" class="quick-card" target="_blank" rel="noopener noreferrer" href="https://share.google/fxqmwvH3DnElvPeOb"><b>आजचे पंचांग</b><small>दाते पंचांग पाहण्यासाठी येथे क्लिक करा</small></a>
+<a id="quick-aarti" class="quick-card" href="#aarti" onclick="openAartiCollection(); return false;"><span>📖</span><b>आरती संग्रह</b><small>गणपती • शिव • देवी आणि इतर आरत्या</small></a>
+<a id="quick-shanka" class="quick-card" href="#shanka" onclick="openShankaPopup(); return false;"><span>❓</span><b>शंका समाधान</b><small>धार्मिक प्रश्न विचारा आणि उत्तर मिळवा</small></a>
+<a id="quick-seva" class="quick-card" href="#seva"><span>🪔</span><b>पूजा सेवा</b><small>गृहप्रवेश • सत्यनारायण • विवाह</small></a>
+<a id="pujaBookingCard" class="quick-card" href="#booking" aria-label="पूजा बुकिंग" onclick="openBookingPopup(); return false;">
+<span>📲</span><b>पूजा बुकिंग</b><small>फॉर्म भरण्यासाठी येथे क्लिक करा</small></a>
+<a id="quick-contact" class="quick-card" href="#contactPopup" aria-label="संपर्क क्रमांक" onclick="openContactPopup(); return false;">
+<span>📞</span><b>संपर्क क्रमांक</b><small>संपर्कासाठी क्रमांक पाहा</small></a>
+<a id="quick-muhurat" class="quick-card" href="#" onclick="openMuhuratPopup(); return false;"><span>🕉️</span><b>शुभ मुहूर्त</b><small>विविध शुभ मुहूर्त पहा दाते पंचांग नुसार</small></a>
+      <a id="quick-stotra" class="quick-card" href="#stotra" onclick="openStotraCollection(); return false;">
+         <span>📿</span><b>स्तोत्र संग्रह</b>
+         <small>गणपती • रामरक्षा • हनुमान आणि इतर स्तोत्रे</small>
+      </a>
+
+<a id="quick-online-booking" class="quick-card" style="display:flex" href="#onlineDarshanBooking"
+   aria-label="ऑनलाईन बुकिंग / दर्शन"
+   onclick="openOnlineTempleBooking(); return false;">
+   <span>🛕</span><b>ऑनलाईन बुकिंग / दर्शन</b>
+   <small>मंदिराची अधिकृत बुकिंग / दर्शन वेबसाइट</small>
+</a>
+
+<a id="quick-youtube" class="quick-card" href="#youtube" onclick="openYoutubePopup(); return false;"><span>▶️</span><b>लाईव्ह दर्शन</b><small>भक्तीचे व्हिडिओ / चॅनेल</small></a>
+</div></section>
+
+
+
+
+
+</main>
+
+
+
+<!-- ऑनलाईन बुकिंग / दर्शन Popup -->
+<div id="onlineBookingPopup" class="online-booking-popup" aria-hidden="true" onclick="if(event.target===this) closeOnlineTempleBooking()">
+  <div class="online-booking-popup-box">
+    <button class="online-booking-popup-close" type="button" aria-label="बंद करा" onclick="closeOnlineTempleBooking()">✕</button>
+    <div class="online-booking-popup-title">🛕 ऑनलाईन बुकिंग / दर्शन</div>
+    <div class="online-booking-popup-sub">मंदिर निवडा. संबंधित अधिकृत वेबसाइट उघडेल.</div>
+    <div id="onlineBookingPopupGrid" class="temple-booking-grid online-booking-popup-grid"></div>
+  </div>
+</div>
+
+<!-- संपर्क क्रमांक Popup -->
+<div id="youtubePopup" class="online-booking-popup" aria-hidden="true" onclick="if(event.target===this) closeYoutubePopup()">
+  <div class="online-booking-popup-box">
+    <button class="online-booking-popup-close" type="button" aria-label="बंद करा" onclick="closeYoutubePopup()">✕</button>
+    <div class="online-booking-popup-title">▶️ लाईव्ह दर्शन</div>
+    <div class="online-booking-popup-sub">Admin Panel मधून प्रकाशित केलेले YouTube चॅनेल निवडा.</div>
+    <div id="youtubePublicGrid" class="temple-booking-grid online-booking-popup-grid"></div>
+  </div>
+</div>
+
+<div id="contactPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeContactPopup()">
+  <div class="booking-popup-box contact-popup-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeContactPopup()">✕</button>
+    <div class="booking-popup-title" id="siteContactName">📞 सुरेश कुलकर्णी (काका)</div>
+    <div class="booking-popup-sub" id="siteContactSub">संपर्क क्रमांक</div>
+    <div class="contact-number-list">
+      <a class="contact-number" id="contact1" href="tel:+918605121165">८६०५१२११६५</a>
+      <a class="contact-number" id="contact2" href="tel:+918888585474">८८८८५८५४७४</a>
+      <a class="contact-number" id="contact3" href="tel:+919860157041">९८६०१५७०४१</a>
+    </div>
+    <div class="contact-address" id="siteContactAddress">📍 <b>पत्ता:</b> जाधव मळा, शिरूर</div>
+  </div>
+</div>
+<style id="contact-popup-style">
+.contact-popup-box{max-width:520px;text-align:center}.contact-number-list{display:grid;gap:10px;margin:16px 0}.contact-number{display:block;padding:13px 18px;border-radius:14px;background:var(--soft);border:1px solid var(--line);color:var(--accent);font-size:22px;font-weight:900;letter-spacing:1px;transition:.2s}.contact-number:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:0 8px 20px rgba(80,45,15,.10)}.contact-address{margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:var(--soft);color:var(--ink);font-size:15px}body.dark .contact-popup-box{background:var(--paper);color:var(--ink)}
+</style>
+
+<div id="booking" aria-hidden="true" style="position:relative;top:-80px;"></div>
+
+<!-- पूजा बुकिंग Popup -->
+<div id="bookingPopup" class="booking-popup" aria-hidden="true"
+     onclick="if(event.target===this) closeBookingPopup()">
+  <div class="booking-popup-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा"
+            onclick="closeBookingPopup()">✕</button>
+
+    <div class="booking-popup-title" id="siteBookingTitle">📲 पूजा बुकिंग</div>
+    <div class="booking-popup-sub" id="siteBookingSub">खालील माहिती भरून WhatsApp वर बुकिंग पाठवा.</div>
+
+    <form id="pujaBookingForm" class="form" onsubmit="sendPujaBookingWhatsApp(event)">
+      <label>
+        पूजेचे नाव
+        <select id="bookingPuja" required>
+          <option value="">पूजा निवडा</option>
+          <option>गृहप्रवेश पूजा</option>
+          <option>वास्तुशांती</option>
+          <option>सत्यनारायण पूजा</option>
+          <option>गणपती पूजा</option>
+          <option>नवग्रह शांती</option>
+          <option>रुद्राभिषेक</option>
+          <option>नामकरण</option>
+          <option>मुंज / उपनयन</option>
+          <option>विवाह पूजा</option>
+          <option>डोहाळे जेवण</option>
+          <option>श्राद्ध / धार्मिक विधी</option>
+          <option>इतर पूजा</option>
+        </select>
+      </label>
+
+      <label>
+        दिनांक
+        <input id="bookingDate" type="date" required>
+      </label>
+
+      <label>
+        वेळ
+        <input id="bookingTime" type="time" required>
+      </label>
+
+      <label>
+        नाव
+        <input id="bookingName" type="text" placeholder="पूर्ण नाव" required>
+      </label>
+
+      <label>
+        मोबाईल
+        <input id="bookingMobile" type="tel" inputmode="numeric"
+               maxlength="10" pattern="[0-9]{10}"
+               placeholder="10 अंकी मोबाईल नंबर" required>
+      </label>
+
+      <label class="full">
+        पत्ता / लँडमार्क
+        <textarea id="bookingAddress" rows="3"
+                  placeholder="पूजा करण्याचा पूर्ण पत्ता / जवळचा लँडमार्क" required></textarea>
+      </label>
+
+      <label>
+        ॲडव्हान्स <span style="color:#b00020;font-weight:900;">* ₹500 अनिवार्य</span>
+        <input id="bookingAdvance" type="text" value="₹500" readonly
+               aria-label="अनिवार्य ॲडव्हान्स ₹500"
+               style="font-weight:900;background:var(--soft);cursor:not-allowed;">
+      </label>
+
+      <div class="full" style="display:grid;gap:8px;">
+        <button class="btn" type="button" id="payAdvanceBtn">💳 ₹500 ॲडव्हान्स UPI ने भरा</button>
+        <div id="advancePaymentStatus" class="booking-confirm-note">
+          🔒 ₹500 ॲडव्हान्स अनिवार्य आहे. UPI बटन दाबल्यावर मोबाईलमधील उपलब्ध UPI App निवडा.
+        </div>
+      </div>
+
+      <label class="full">
+        विशेष सूचना
+        <textarea id="bookingNote" rows="3"
+                  placeholder="पूजेसंबंधी काही विशेष सूचना असल्यास लिहा."></textarea>
+      </label>
+
+      <div class="booking-confirm-note full">
+        ℹ️ <b>टीप:</b> WhatsApp वर बुकिंगचा मेसेज पाठवल्यानंतर
+        <b>कन्फर्मेशन कॉल करण्यात येईल.</b>
+      </div>
+
+      <button class="btn full" type="submit">
+        📲 बुकिंग करा
+      </button>
+    </form>
+  </div>
+</div>
+
+<style>
+#bookingPopup .booking-popup-box{max-width:620px}
+#bookingPopup .form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+#bookingPopup .form label{display:block;font-weight:800;color:var(--ink)}
+#bookingPopup .form input,#bookingPopup .form select,#bookingPopup .form textarea{
+  width:100%;margin-top:6px;box-sizing:border-box
+}
+#bookingPopup .full{grid-column:1/-1}
+.booking-confirm-note{
+  padding:12px 14px;border:1px solid var(--line);border-radius:13px;
+  background:var(--soft);color:var(--ink);line-height:1.55;font-size:14px
+}
+@media(max-width:600px){
+  #bookingPopup .form{grid-template-columns:1fr}
+  #bookingPopup .full{grid-column:auto}
+}
+</style>
+
+<footer><div class="foot"><div><div class="logo" style="color:#e2b65f">🪔 पुरोहित सेवा</div><div class="small">धार्मिक विधी • पंचांग • आरती • ज्ञान</div></div><div class="small">📞 संपर्क क्रमांक: <a href="tel:+918888585474" style="color:inherit;text-decoration:underline;font-weight:800">8888585474</a><br>💬 <a href="https://wa.me/918888585474" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;font-weight:800">WhatsApp वर संपर्क करा</a><br>📍 सेवा क्षेत्र: तुमचा परिसर येथे जोडा</div></div></footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+/* ===== PUROHIT SEVA CLOUD SYNC =====
+   Add your Supabase project URL + anon key below after creating the table.
+   The public site reads published content; Admin writes changes to the same cloud database.
+*/
+const CLOUD_CONFIG = {
+  url: '',
+  anonKey: '',
+  table: 'purohit_seva_content',
+  rowId: 'main'
+};
+let cloudClient = null;
+function cloudReady(){ return !!(CLOUD_CONFIG.url && CLOUD_CONFIG.anonKey && window.supabase); }
+function initCloud(){
+  try{ if(cloudReady()) cloudClient=window.supabase.createClient(CLOUD_CONFIG.url,CLOUD_CONFIG.anonKey); }catch(e){ cloudClient=null; }
+  return cloudClient;
+}
+initCloud();
+async function cloudLoad(){
+  if(!cloudClient)return null;
+  try{
+    const {data,error}=await cloudClient.from(CLOUD_CONFIG.table).select('payload').eq('id',CLOUD_CONFIG.rowId).maybeSingle();
+    if(error) throw error;
+    return data?.payload || null;
+  }catch(e){ console.warn('Cloud load failed',e); return null; }
+}
+async function cloudSave(){
+  if(!cloudClient)return false;
+  try{
+    const {error}=await cloudClient.from(CLOUD_CONFIG.table).upsert({id:CLOUD_CONFIG.rowId,payload:data,updated_at:new Date().toISOString()});
+    if(error) throw error;
+    return true;
+  }catch(e){ console.warn('Cloud save failed',e); return false; }
+}
+async function syncFromCloud(){
+  const remote=await cloudLoad();
+  if(remote && typeof remote==='object') {
+    data=remote; if(!data.stotra)data.stotra=[]; if(!data.muhurats)data.muhurats=[]; if(!data.shanka)data.shanka=[];
+if(!Array.isArray(data.youtube))data.youtube=[]; if(!data.panchangByDate)data.panchangByDate={};
+    try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+    return true;
+  }
+  return false;
+}
+async function publishToCloud(){
+  const ok=await cloudSave();
+  const st=document.getElementById('cloudStatus');
+  if(st) st.textContent=ok?'🟢 Cloud मध्ये प्रकाशित':'🟠 Local मध्ये सेव्ह — Cloud जोडलेले नाही';
+  return ok;
+}
+</script>
+
+<script>
+const KEY='purohitSevaDataV4';
+const PLAYLIST_KEY='purohitSevaMyPlaylistV1';
+let myPlaylist=[];
+let customerSongs=[];
+function loadMyPlaylist(){try{const r=localStorage.getItem(PLAYLIST_KEY);myPlaylist=r?JSON.parse(r):[];if(!Array.isArray(myPlaylist))myPlaylist=[];}catch(e){myPlaylist=[];}}
+function saveMyPlaylist(){try{localStorage.setItem(PLAYLIST_KEY,JSON.stringify(myPlaylist));}catch(e){}}
+function togglePlaylist(i){const song=(data.bhakti||[])[i];if(!song)return;const exists=myPlaylist.some(x=>x.url===song.url);if(exists){myPlaylist=myPlaylist.filter(x=>x.url!==song.url);}else{myPlaylist.unshift({title:song.title,url:song.url});}saveMyPlaylist();render();renderPublicPlaylist();}
+
+const defaults={
+panchang:{date:'',location:'',week:'',tithi:'',nak:'',sunrise:'',rahu:'',sunset:'',special:'',full:''},
+aarti:[
+ {title:'श्री गणपतीची आरती',text:'आरतीचा पूर्ण मजकूर Admin Panel मधून येथे टाका.'},
+ {title:'श्री शिवाची आरती',text:'आरतीचा पूर्ण मजकूर Admin Panel मधून येथे टाका.'},
+ {title:'श्री देवीची आरती',text:'आरतीचा पूर्ण मजकूर Admin Panel मधून येथे टाका.'}
+],
+shastra:[{title:'गृहप्रवेश का करतात?',text:'या लेखाचा मजकूर Admin Panel मधून Copy-Paste करून भरा.',ref:'संदर्भ येथे भरा'}],
+bhakti:[{title:'आजचे भक्तिगीत',url:''}]
+};
+let data=defaults;
+if(!data.stotra) data.stotra=[];
+if(!data.muhurats) data.muhurats=[];
+try{const raw=localStorage.getItem(KEY);if(raw)data=JSON.parse(raw)||defaults}catch(e){data=defaults}
+if(!data.panchangByDate) data.panchangByDate={};
+// Public collections are Firebase-authoritative. This prevents old browser-only test items
+// from reappearing after a fresh deploy. Firebase onSnapshot repopulates them immediately.
+data.aarti=[];
+data.stotra=[];
+data.muhurats=[];
+data.shanka=[];
+
+// ===== PUBLIC COLLECTION DATA =====
+// Built-in items always remain visible. Admin-published Firebase items are added below them.
+const BUILTIN_AARTI_COLLECTION = [];
+
+const MUHURAT_DEFAULTS=[];
+function mergeMuhuratItems(published){
+  const docs=Array.isArray(published)?published:[];
+  const out=[]; const seen=new Set();
+  docs.forEach(x=>{
+    if(!x || x.deleted) return;
+    const id=String(x.id||'');
+    if(!id || seen.has(id)) return;
+    seen.add(id);
+    // month जतन करणे अत्यावश्यक आहे — Admin Edit/Delete आणि Public महिन्यानुसार display यावर ते अवलंबून आहे.
+    out.push({id,title:x.title||'',text:x.text||'',month:x.month||'',date:x.date||'',time:x.time||''});
+  });
+  return out;
+}
+function mergePublicItems(builtins,published){
+  const docs=Array.isArray(published)?published:[];
+  const out=[]; const seen=new Set();
+  docs.forEach(x=>{
+    if(!x || x.deleted) return;
+    const id=String(x.id||'');
+    if(!id || seen.has(id)) return;
+    seen.add(id);
+    out.push({...x});
+  });
+  return out;
+}
+function applyFirebaseCollection(dataKey, items){
+  if(!Array.isArray(items)) return;
+  if(dataKey==='aarti') data.aarti=mergePublicItems([],items);
+  else if(dataKey==='stotra') data.stotra=mergePublicItems([],items);
+  else if(dataKey==='muhurats') data.muhurats=mergeMuhuratItems(items);
+  else if(dataKey==='shanka') data.shanka=mergePublicItems([],items);
+  else data[dataKey]=items;
+  try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+}
+const nowLocal=new Date();
+const initialKey=nowLocal.getFullYear()+'-'+String(nowLocal.getMonth()+1).padStart(2,'0')+'-'+String(nowLocal.getDate()).padStart(2,'0');
+let calendarView={year:nowLocal.getFullYear(),month:nowLocal.getMonth(),selected:initialKey};
+if(!data.panchang.full){
+ data.panchangByDate['2026-09-17']={
+  date:'१७ सप्टेंबर २०२६',location:'मुंबई प्रमाणे',week:'गुरुवार',
+  tithi:'षष्ठी १०:४८, अग्निवास १०:४८ पर्यंत',nak:'अनुराधा १९:५४',
+  sunrise:'०६:२८',rahu:'१४:०४ ते १५:३६',sunset:'१८:३८',
+  special:'गौरी आवाहन १९:५४ प., सूर्यषष्ठी, कार्तिकेय दर्शनाने पापनाश, श्री बलराम जयंती',
+  full:`आजचे दाते पंचांग
+१७ सप्टेंबर २०२६
+गुरुवार
+* शक: १९४८, पराभव संवत्सर
+* अयन - ऋतु: दक्षिणायन - सौर शरदऋतु
+* मास पक्ष: भाद्रपद शुक्लपक्ष
+* तिथि: षष्ठी १०:४८, अग्निवास १०:४८ पर्यंत
+* नक्षत्र: अनुराधा १९:५४
+* योग: विष्कुंभ १२:५०
+* करण: गरज २३:५३
+* चंद्रराशि: वृश्चिक
+* रविराशि - नक्षत्र: ०७:५२ नं. कन्या - उत्तरा
+* गुरुराशि: कर्क
+* शुक्रराशि: तुळा
+* विवरण: २० प. चांगला
+* शास्त्रार्थ: गौरी आवाहन १९:५४ प., सूर्यषष्ठी, कार्तिकेय दर्शनाने पापनाश, श्री बलराम जयंती, रवि कन्या ७:५२, मु. ३० साम्यार्थ, पुण्यकाल ७:५२ ते १४:१६, घबार्ड १०:४८ प., दग्ध १०:४८ प., सप्तमी श्राद्ध
+* राशिप्रवेश: रवि - कन्या ०७:५२
+* राहुकाल: १४:०४ नं. १५:३६ प.
+* सूर्य उदय - अस्त: ०६:२८ - १८:३८
+* चंद्र उदय - अस्त: ११:४७ - २२:५५
+* मुंबई प्रमाणे`
+ };
+ save();
+}
+async function save(){
+ const payload=JSON.stringify(data);
+ try{localStorage.setItem(KEY,payload)}catch(e){}
+ try{
+   const req=indexedDB.open('PurohitSevaDB',1);
+   req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('store'))req.result.createObjectStore('store')};
+   req.onsuccess=()=>{try{const db=req.result;const tx=db.transaction('store','readwrite');tx.objectStore('store').put(payload,KEY);tx.oncomplete=()=>db.close();}catch(e){}};
+ }catch(e){}
+}
+function loadSavedData(){
+ try{
+   const raw=localStorage.getItem(KEY);
+   if(raw){data=JSON.parse(raw);if(!data.aarti)data.aarti=[];if(!data.bhakti)data.bhakti=[];if(!data.shastra)data.shastra=[];if(!data.stotra)data.stotra=[];if(!data.muhurats)data.muhurats=[];if(!data.shanka)data.shanka=[];if(!data.panchangByDate)data.panchangByDate={};return Promise.resolve();}
+ }catch(e){}
+ return new Promise(resolve=>{
+   try{
+     const req=indexedDB.open('PurohitSevaDB',1);
+     req.onupgradeneeded=()=>{if(!req.result.objectStoreNames.contains('store'))req.result.createObjectStore('store')};
+     req.onsuccess=()=>{
+       try{
+         const db=req.result,tx=db.transaction('store','readonly'),get=tx.objectStore('store').get(KEY);
+         get.onsuccess=()=>{
+           try{if(get.result){data=JSON.parse(get.result);if(!data.bhakti)data.bhakti=[];if(!data.panchangByDate)data.panchangByDate={};}}catch(e){}
+           db.close();resolve();
+         };
+         get.onerror=()=>{db.close();resolve()};
+       }catch(e){resolve()}
+     };
+     req.onerror=()=>resolve();
+   }catch(e){resolve()}
+ });
+}
+
+data.muhurats=mergeMuhuratItems(Array.isArray(data.muhurats)?data.muhurats:[]);
+const mrWeek={'Sunday':'रविवार','Monday':'सोमवार','Tuesday':'मंगळवार','Wednesday':'बुधवार','Thursday':'गुरुवार','Friday':'शुक्रवार','Saturday':'शनिवार'};
+const mrMonth=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
+function prettyDate(key){const a=key.split('-').map(Number);return String(a[2]).padStart(2,'0')+' '+mrMonth[a[1]-1]+' '+a[0]}
+function setBigDate(key,week){
+ const a=key.split('-').map(Number), d=new Date(Date.UTC(a[0],a[1]-1,a[2]));
+ const bigDate=document.getElementById('bigDate');
+ const bigWeek=document.getElementById('bigWeek');
+ if(bigDate) bigDate.textContent=prettyDate(key);
+ if(bigWeek) bigWeek.textContent=week||mrWeek[d.toLocaleDateString('en-US',{weekday:'long',timeZone:'UTC'})]||'';
+ const pd=document.getElementById('pDate'); if(pd) pd.textContent=prettyDate(key);
+}
+function loadAutomaticPanchang(key){
+  const saved=data.panchangByDate[key]||{};
+  const a=key.split('-').map(Number);
+  const d=new Date(Date.UTC(a[0],a[1]-1,a[2]));
+  const week=saved.week || mrWeek[d.toLocaleDateString('en-US',{weekday:'long',timeZone:'UTC'})] || '';
+  setBigDate(key,week);
+  if(saved.full){ data.panchang=saved; }
+}
+function render(){
+ const x=data.panchang||defaults.panchang;
+ setBigDate(calendarView.selected,x.week);
+ const ids=[['pDate',x.date],['pLocation',x.location],['pWeek',x.week],['pTithi',x.tithi],['pNak',x.nak],['pSunrise',x.sunrise],['pSunset',x.sunset],['pSpecial',x.special],['pRahu',x.rahu],['fullPanchang',x.full]];
+ ids.forEach(([id,val])=>{const el=document.getElementById(id);if(el)el.textContent=val||'—'});
+ const sh=document.getElementById('shastraCards');
+ if(sh)sh.innerHTML=data.shastra.map((x,i)=>`<div class="card"><div class="icon">📜</div><h3>${esc(x.title)}</h3>
+<p>${esc(x.text).slice(0,150)}${x.text.length>150?'…':''}</p><a class="read" href="#shastra" onclick="alertReader(${i})">संपूर्ण माहिती →</a></div>`).join('');
+ const ar=document.getElementById('aartiCards');
+ if(ar)ar.innerHTML=data.aarti.map((x,i)=>`<div class="card"><div class="icon">🪔</div><h3>${esc(x.title)}</h3><p>आरतीचे शब्द मोबाईलवर वाचा आणि म्हणता येतील.</p><a class="read" href="#aarti" onclick="readAarti(${i})">📖 आरती वाचा →</a></div>`).join('');
+ const bh=document.getElementById('bhaktiCards');
+ if(bh)bh.innerHTML=data.bhakti.map((x,i)=>{const saved=myPlaylist.some(p=>p.url===x.url);return `<div class="card"><div class="icon">🎵</div><h3>${esc(x.title)}</h3><p>गाणे ऐकण्यासाठी किंवा प्ले लिस्टमध्ये जतन करण्यासाठी पर्याय निवडा.</p>${x.url?`<a class="btn alt" target="_blank" rel="noopener noreferrer" href="${escAttr(x.url)}">▶️ गाणे ऐका</a><button type="button" class="btn" style="margin-left:8px" onclick="togglePlaylist(${i})">${saved?'✅ प्ले लिस्टमध्ये सेव्ह आहे':'➕ माझ्या प्ले लिस्टमध्ये सेव्ह करा'}</button>`:''}</div>`;}).join('');
+ renderAdminLists();
+}
+function esc(s){return String(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]))}
+function escAttr(s){return String(s||'').replace(/"/g,'&quot;')}
+function readAarti(i){let x=data.aarti[i];document.getElementById('aartiReader').style.display='block';document.getElementById('readerTitle').textContent='🪔 '+x.title;document.getElementById('readerText').textContent=x.text;document.getElementById('aartiReader').scrollIntoView({behavior:'smooth'})}
+
+function closeOnlineTempleBooking(){
+  const popup=document.getElementById('onlineBookingPopup');
+  if(!popup)return;
+  popup.classList.remove('show');
+  popup.setAttribute('aria-hidden','true');
+}
+function openOnlineTempleBooking(){
+  const popup=document.getElementById('onlineBookingPopup');
+  if(!popup)return;
+  renderTempleBookingsPublic();
+  popup.classList.add('show');
+  popup.setAttribute('aria-hidden','false');
+}
+
+function closeYoutubePopup(){
+  const popup=document.getElementById('youtubePopup');
+  if(!popup)return;
+  popup.classList.remove('show');
+  popup.setAttribute('aria-hidden','true');
+}
+function openYoutubePopup(){
+  const popup=document.getElementById('youtubePopup');
+  if(!popup)return;
+  renderYoutubePublic();
+  popup.classList.add('show');
+  popup.setAttribute('aria-hidden','false');
+}
+function normalizeYoutubeUrl(v){
+  v=String(v||'').trim();
+  if(!v)return '';
+  if(!/^https?:\/\//i.test(v))v='https://'+v;
+  try{
+    const u=new URL(v);
+    if(u.protocol!=='http:'&&u.protocol!=='https:')return '';
+    if(!/(^|\.)youtube\.com$|(^|\.)youtu\.be$/.test(u.hostname.toLowerCase()))return '';
+    return u.href;
+  }catch(e){return '';}
+}
+function renderYoutubePublic(){
+  const el=document.getElementById('youtubePublicGrid');
+  if(!el)return;
+  const list=Array.isArray(data.youtube)?data.youtube:[];
+  const visible=list.filter(x=>x && x.title && normalizeYoutubeUrl(x.url) && x.published!==false);
+  if(!visible.length){
+    el.innerHTML='<div class="temple-booking-empty">अद्याप कोणतेही YouTube चॅनेल प्रकाशित केलेले नाही.</div>';
+    return;
+  }
+  el.innerHTML=visible.map(x=>{
+    const url=normalizeYoutubeUrl(x.url);
+    return '<a class="temple-booking-card" href="'+escAttr(url)+'" target="_blank" rel="noopener noreferrer">'+
+      '<span class="temple-booking-icon">▶️</span>'+
+      '<span><b>'+esc(x.title)+'</b><small>YouTube चॅनेल उघडा</small></span>'+
+      '<span class="temple-booking-arrow">↗</span></a>';
+  }).join('');
+}
+
+function openBhakti(i){
+ const x=data.bhakti[i];
+ if(x&&x.url)window.open(x.url,'_blank','noopener,noreferrer');
+ else alert('या गाण्याची YouTube लिंक अजून जोडलेली नाही.');
+}
+function alertReader(i){
+  const x=data.shastra[i];
+  if(!x)return;
+  alert(x.title+'\n\n'+x.text+(x.ref?'\n\nसंदर्भ: '+x.ref:''));
+}
+function closeReader(){document.getElementById('aartiReader').style.display='none'}
+function showEditor(id,btn){document.querySelectorAll('.editor').forEach(e=>e.style.display='none');document.getElementById(id).style.display='grid';document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active')}
+function savePanchangPaste(){ if(!document.getElementById('panchangPaste')) return; 
+ const full=panchangPaste.value.trim();
+ if(!full)return alert('पंचांगाची माहिती Copy-Paste करा.');
+ const lines=full.split(String.fromCharCode(10)).map(s=>s.trim()).filter(Boolean);
+ const dm=lines.find(s=>/^\d{1,2}\s+[^\d\s]+\s+\d{4}$/.test(s));
+ const dateText=dm||'';
+ const m=dateText.match(/^(\d{1,2})\s+([^\d\s]+)\s+(\d{4})$/);
+ if(!m)return alert('पंचांगात तारीख स्पष्टपणे लिहा. उदा. १७ सप्टेंबर २०२६');
+ const monthMap={'जानेवारी':0,'फेब्रुवारी':1,'मार्च':2,'एप्रिल':3,'मे':4,'जून':5,'जुलै':6,'ऑगस्ट':7,'सप्टेंबर':8,'ऑक्टोबर':9,'नोव्हेंबर':10,'डिसेंबर':11};
+ const day=Number(m[1]), month=monthMap[m[2]], year=Number(m[3]);
+ if(month===undefined||day<1||day>31)return alert('तारीख तपासा.');
+ const key=year+'-'+String(month+1).padStart(2,'0')+'-'+String(day).padStart(2,'0');
+ const week=lines.find(s=>/^(सोमवार|मंगळवार|बुधवार|गुरुवार|शुक्रवार|शनिवार|रविवार)/.test(s))||'';
+ const tithi=(lines.find(s=>/तिथि/.test(s))||'').replace(/^\*\s*/,'');
+ const nak=(lines.find(s=>/नक्षत्र/.test(s))||'').replace(/^\*\s*/,'');
+ const sunrise=(lines.find(s=>/सूर्य उदय/.test(s))||'').split(':').slice(1).join(':').trim().split('-')[0]?.trim()||'';
+ const sunset=(lines.find(s=>/सूर्य उदय/.test(s))||'').split('-').slice(1).join('-').trim()||'';
+ const rahu=(lines.find(s=>/राहुकाल/.test(s))||'').replace(/^\*\s*/,'').replace(/^राहुकाल:\s*/,'').trim();
+ const special=(lines.find(s=>/शास्त्रार्थ/.test(s))||'').replace(/^\*\s*/,'').replace(/^शास्त्रार्थ:\s*/,'');
+ const loc=(lines.find(s=>/मुंबई प्रमाणे|स्थान/.test(s))||'').replace(/^\*\s*/,'');
+ data.panchangByDate[key]={date:dateText,location:loc,week,tithi,nak,sunrise,rahu,sunset,special,full};
+ data.panchang=data.panchangByDate[key];
+ calendarView={year,month,selected:key};
+ save();render();alert('त्या तारखेचे पंचांग जतन झाले.');location.hash='panchang';
+}
+function addAarti(){if(!arTitle.value||!arText.value)return alert('आरतीचे नाव आणि पूर्ण मजकूर भरा.');data.aarti.unshift({title:arTitle.value,text:arText.value});save();arTitle.value='';arText.value='';render();alert('आरती जतन झाली.');}
+function addShastra(){if(!shTitle.value||!shText.value)return alert('शीर्षक आणि लेख भरा.');data.shastra.unshift({title:shTitle.value,text:shText.value,ref:shRef.value});save();shTitle.value='';shText.value='';shRef.value='';render();alert('लेख जतन झाला.');}
+function addBhakti(){
+ const titleEl=document.getElementById('bhTitle');
+ const urlEl=document.getElementById('bhUrl');
+ const title=(titleEl?.value||'').trim();
+ let url=(urlEl?.value||'').trim();
+ if(!title){alert('🎵 भक्तिगीताचे नाव भरा.');titleEl?.focus();return;}
+ if(!url){alert('🔗 YouTube वरील गाण्याची लिंक पेस्ट करा.');urlEl?.focus();return;}
+ if(!/^https?:\/\//i.test(url))url='https://'+url;
+ if(!/youtube\.com|youtu\.be/i.test(url)){alert('कृपया YouTube वरील गाण्याची लिंक पेस्ट करा.');urlEl?.focus();return;}
+ data.bhakti=data.bhakti||[];
+ const song={title:title,url:url};
+ data.bhakti.unshift(song);
+
+ // गाणे सेव्ह करताच ते “माझी प्ले लिस्ट” मध्येही कायमचे सेव्ह करा.
+ loadMyPlaylist();
+ myPlaylist=myPlaylist.filter(x=>x.url!==url);
+ myPlaylist.unshift({title:title,url:url});
+ saveMyPlaylist();
+
+ save();
+ if(titleEl)titleEl.value='';
+ if(urlEl)urlEl.value='';
+ render();
+ renderAdminLists();
+ renderCustomerPlaylist();
+ 
+}function loadCustomerSongs(){
+ try{
+  const r=localStorage.getItem('purohitSevaCustomerSongsV1');
+  customerSongs=r?JSON.parse(r):[];
+  if(!Array.isArray(customerSongs))customerSongs=[];
+ }catch(e){customerSongs=[];}
+}
+function saveCustomerSongs(){
+ try{localStorage.setItem('purohitSevaCustomerSongsV1',JSON.stringify(customerSongs));}catch(e){}
+}
+function addCustomerSong(title,url){
+ title=(title||'').trim(); url=(url||'').trim();
+ if(!title || !url) return false;
+ if(customerSongs.some(x=>x.url===url)) return false;
+ customerSongs.unshift({title,url});
+ saveCustomerSongs();
+ renderCustomerPlaylist();
+ return true;
+}
+function removeCustomerSong(i){
+ customerSongs.splice(i,1);
+ saveCustomerSongs();
+ renderCustomerPlaylist();
+}
+function renderCustomerPlaylist(){
+ const el=document.getElementById('publicPlaylist');
+ if(!el)return;
+ if(!customerSongs.length){
+  el.innerHTML='<div class="hint">तुम्ही अजून कोणतेही गाणे सेव्ह केलेले नाही.</div>';
+  return;
+ }
+ el.innerHTML=customerSongs.map((x,i)=>`
+  <div class="playlist-item">
+   <a class="playlist-play" href="${escAttr(x.url)}" target="_blank" rel="noopener noreferrer">▶️</a>
+   <a class="playlist-name" href="${escAttr(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>
+   <button type="button" class="song-delete" onclick="removeCustomerSong(${i})">🗑️</button>
+  </div>`).join('');
+}
+function renderPublicPlaylist(){
+  // Public/customer playlist is intentionally independent from admin playlist.
+  renderCustomerPlaylist();
+}
+function removeFromPlaylist(i){
+ myPlaylist.splice(i,1);
+ saveMyPlaylist();
+ render();
+ renderCustomerPlaylist();
+ renderPublicPlaylist();
+}
+function renderAdminLists(){
+ const sh=document.getElementById('shastraAdminList');
+ if(sh)sh.innerHTML='साठवलेले लेख: '+(data.shastra||[]).map(x=>esc(x.title)).join(' • ');
+ const bl=document.getElementById('bhaktiAdminList');
+ if(!bl)return;
+ const songs=data.bhakti||[];
+ bl.innerHTML='<div class="song-settings-title">🎵 गीत सेटिंग / प्ले लिस्ट</div>'+
+ (songs.length?'<div class="playlist-list">'+songs.map((x,i)=>`
+   <div class="playlist-item">
+     <a class="playlist-play" href="${escAttr(x.url)}" target="_blank" rel="noopener noreferrer">▶️</a>
+     <a class="playlist-name" href="${escAttr(x.url)}" target="_blank" rel="noopener noreferrer">${esc(x.title)}</a>
+     <button type="button" class="song-delete" onclick="deleteBhakti(${i})" aria-label="गीत हटवा">🗑️</button>
+   </div>`).join('')+'</div>':'<div class="hint">अजून गाणे जतन केलेले नाही.</div>');
+}
+function deleteBhakti(i){
+ if(!confirm('हे गीत हटवायचे आहे का?'))return;
+ const removed=data.bhakti[i];
+ data.bhakti.splice(i,1);
+ if(removed?.url){
+   loadMyPlaylist();
+   myPlaylist=myPlaylist.filter(x=>x.url!==removed.url);
+   saveMyPlaylist();
+ }
+ save();
+ render();
+ renderAdminLists();
+ renderCustomerPlaylist();
+}
+function renderCalendar(){
+ const y=calendarView.year,m=calendarView.month;
+ const monthNames=['जानेवारी','फेब्रुवारी','मार्च','एप्रिल','मे','जून','जुलै','ऑगस्ट','सप्टेंबर','ऑक्टोबर','नोव्हेंबर','डिसेंबर'];
+ document.getElementById('calTitle').textContent=monthNames[m]+' '+y;
+ const g=document.getElementById('calendarGrid');
+ const heads=['रवि','सोम','मंगळ','बुध','गुरु','शुक्र','शनि'];
+ let out=heads.map(x=>'<div class="dow">'+x+'</div>').join('');
+ const first=new Date(Date.UTC(y,m,1)), start=first.getUTCDay(), days=new Date(Date.UTC(y,m+1,0)).getUTCDate(), prevDays=new Date(Date.UTC(y,m,0)).getUTCDate();
+ for(let i=0;i<42;i++){
+   const n=i-start+1; let d=n, yy=y, mm=m, muted=false;
+   if(n<1){d=prevDays+n; mm=m-1; if(mm<0){mm=11;yy--} muted=true}
+   else if(n>days){d=n-days; mm=m+1; if(mm>11){mm=0;yy++} muted=true}
+   const key=yy+'-'+String(mm+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+   const t=new Date(),todayKey=t.getFullYear()+'-'+String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');const cls='day'+(muted?' muted':'')+(key===todayKey?' today':'')+(key===calendarView.selected?' selected':'')+(data.panchangByDate[key]?' hasdata':'');
+   out+='<button type="button" class="'+cls+'" data-date="'+key+'">'+d+'</button>';
+ }
+ g.innerHTML=out;
+ g.querySelectorAll('.day').forEach(b=>b.addEventListener('click',()=>selectPanchangDate(b.dataset.date)));
+}
+function selectPanchangDate(key){
+ calendarView.selected=key;
+ const a=key.split('-').map(Number);calendarView.year=a[0];calendarView.month=a[1]-1;
+ renderCalendar();loadAutomaticPanchang(key);
+}
+
+function loadP(){let x=data.panchang||{}; if(document.getElementById('panchangPaste'))panchangPaste.value=x.full||''}
+function submitBooking(e){e.preventDefault();alert('Booking Request नोंदवली आहे. प्रत्यक्ष WhatsApp/डेटाबेस जोडणीसाठी पुढील विकास आवश्यक आहे.')}
+
+function applyTheme(mode,save=true){
+  const night = mode === 'dark';
+  document.body.classList.toggle('dark', night);
+  const icon = document.getElementById('appearanceIcon');
+  const value = document.getElementById('appearanceValue');
+  if(icon) icon.textContent = night ? '☀️' : '☼';
+  if(value) value.textContent = night ? 'रात्र' : 'दिवस';
+  if(save){
+    try{ localStorage.setItem('purohitSevaAppearance', night ? 'dark' : 'light'); }catch(e){}
+  }
+}
+function toggleAppearance(e){
+  if(e) e.preventDefault();
+  const night = document.body.classList.contains('dark');
+  applyTheme(night ? 'light' : 'dark', true);
+}
+let savedAppearance='light';
+try{ savedAppearance=localStorage.getItem('purohitSevaAppearance') || 'light'; }catch(e){}
+applyTheme(savedAppearance,false);
+
+loadCustomerSongs();loadMyPlaylist();loadP();loadSavedData().then(async()=>{await syncFromCloud();renderCalendar();render();renderAdminLists();renderCustomerPlaylist();});
+const cpf=document.getElementById('customerPlaylistForm');
+if(cpf)cpf.addEventListener('submit',function(e){
+ e.preventDefault();
+ const ok=addCustomerSong(document.getElementById('customerSongTitle').value,document.getElementById('customerSongUrl').value);
+ const msg=document.getElementById('customerPlaylistMsg');
+ if(ok){
+  document.getElementById('customerSongTitle').value='';
+  document.getElementById('customerSongUrl').value='';
+  msg.textContent='✅ गाणे तुमच्या प्ले लिस्टमध्ये सेव्ह झाले.';
+ }else msg.textContent='हे गाणे आधीच सेव्ह केले आहे किंवा माहिती अपूर्ण आहे.';
+});
+const todayBtn=document.getElementById('todayBtn'); if(todayBtn) todayBtn.addEventListener('click',()=>{const n=new Date();const key=n.getFullYear()+'-'+String(n.getMonth()+1).padStart(2,'0')+'-'+String(n.getDate()).padStart(2,'0');calendarView.selected=key;loadAutomaticPanchang(key);render();});
+loadAutomaticPanchang(calendarView.selected);
+
+renderCustomerPlaylist();
+</script>
+
+<button id="toTopBtn" type="button" aria-label="वर जा" title="वर जा">↑</button>
+<style>
+#toTopBtn{
+  position:fixed;right:18px;bottom:18px;z-index:50;
+  width:46px;height:46px;border:1px solid var(--line);border-radius:50%;
+  background:var(--paper);color:var(--accent);font-size:22px;font-weight:900;
+  box-shadow:0 10px 28px rgba(55,25,8,.16);cursor:pointer;
+  opacity:0;transform:translateY(12px);pointer-events:none;transition:.22s ease
+}
+#toTopBtn.show{opacity:1;transform:translateY(0);pointer-events:auto}
+#toTopBtn:hover{transform:translateY(-2px)}
+</style>
+<script>
+(function(){
+ const b=document.getElementById('toTopBtn');
+ if(!b)return;
+ window.addEventListener('scroll',()=>b.classList.toggle('show',window.scrollY>420),{passive:true});
+ b.addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
+})();
+</script>
+
+
+
+<!-- स्तोत्र संग्रह Popup -->
+<div id="stotraCollectionPopup" class="booking-popup" aria-hidden="true"
+     onclick="if(event.target===this) closeStotraCollection()">
+  <div class="booking-popup-box stotra-collection-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा"
+            onclick="closeStotraCollection()">✕</button>
+    <div class="booking-popup-title">📿 स्तोत्र संग्रह</div>
+    <div class="booking-popup-sub">खालील स्तोत्र निवडून वाचा.</div>
+    <div id="stotraCollectionList" class="stotra-collection-list"></div>
+    <div id="stotraReader" class="stotra-reader" hidden>
+      <div class="stotra-reader-head">
+        <h3 id="stotraReaderTitle"></h3>
+        <button type="button" class="btn alt" onclick="backToStotraList()">← संग्रह</button>
+      </div>
+      <div id="stotraReaderText" class="readbox stotra-text"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.stotra-collection-box{width:min(860px,100%)}
+.stotra-collection-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.stotra-collection-item{
+  border:1px solid rgba(173,126,52,.55);background:linear-gradient(110deg,#333431 0%,#77756f 38%,#d8cfc1 72%,#efe6d9 100%);
+  color:#fffaf1;border-radius:16px;padding:15px;text-align:left;
+  font:inherit;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:11px;
+  transition:.18s ease;box-shadow:0 5px 16px rgba(70,35,10,.05)
+}
+.stotra-collection-item:hover{transform:translateY(-2px);border-color:var(--gold)}
+.stotra-reader[hidden]{display:none}
+.stotra-reader{margin-top:18px}
+.stotra-reader-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.stotra-reader-head h3{margin:0;color:var(--accent)}
+.stotra-text{font-size:18px;line-height:2.05;white-space:pre-wrap}
+@media(max-width:600px){
+  .stotra-collection-list{grid-template-columns:1fr}
+  .stotra-reader-head{align-items:flex-start;flex-direction:column}
+}
+</style>
+
+<script>
+const STOTRA_DEFAULTS = [];
+STOTRA_DEFAULTS.forEach((x,i)=>{if(!x.id)x.id='builtin-stotra-'+i;});
+
+function openStotraCollection(){
+  const p=document.getElementById('stotraCollectionPopup');
+  const list=document.getElementById('stotraCollectionList');
+  const reader=document.getElementById('stotraReader');
+  if(!p||!list)return;
+  const listData=Array.isArray(data.stotra)?data.stotra:[];
+  list.innerHTML=listData.map((x,i)=>
+    '<button type="button" class="stotra-collection-item" onclick="selectStotra('+i+')">📿 <span>'+esc(x.title)+'</span></button>'
+  ).join('');
+  if(reader)reader.hidden=true;
+  list.style.display='grid';
+  p.classList.add('show');
+  p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+}
+function selectStotra(i){
+  const listData=Array.isArray(data.stotra)?data.stotra:[];
+  const x=listData[i];
+  if(!x)return;
+  document.getElementById('stotraCollectionList').style.display='none';
+  document.getElementById('stotraReaderTitle').textContent=x.title;
+  document.getElementById('stotraReaderText').textContent=x.text;
+  document.getElementById('stotraReader').hidden=false;
+}
+function backToStotraList(){
+  document.getElementById('stotraReader').hidden=true;
+  document.getElementById('stotraCollectionList').style.display='grid';
+}
+function closeStotraCollection(){
+  const p=document.getElementById('stotraCollectionPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+</script>
+
+<!-- आजचे पंचांग Popup -->
+<div id="panchangPopup" class="panchang-popup" aria-hidden="true">
+  <div class="panchang-popup-backdrop" onclick="closePanchangPopup()"></div>
+  <div class="panchang-popup-box" role="dialog" aria-modal="true" aria-labelledby="panchangPopupTitle">
+    <button type="button" class="panchang-popup-close" onclick="closePanchangPopup()" aria-label="बंद करा">✕</button>
+    <div id="panchangPopupTitle" class="panchang-popup-title">आजचे पंचांग</div>
+    <div id="panchangPopupContent" class="panchang-popup-content"></div>
+  </div>
+</div>
+
+<style>
+.panchang-popup{
+  display:none;position:fixed;inset:0;z-index:100;
+  align-items:center;justify-content:center;padding:18px;
+}
+.panchang-popup.show{display:flex}
+.panchang-popup-backdrop{
+  position:absolute;inset:0;background:rgba(25,12,6,.65);
+  backdrop-filter:blur(5px);
+}
+.panchang-popup-box{
+  position:relative;z-index:1;width:min(720px,100%);max-height:88vh;
+  overflow:auto;background:var(--paper);color:var(--ink);
+  border:1px solid var(--line);border-radius:24px;padding:26px;
+  box-shadow:0 30px 80px rgba(0,0,0,.28);
+}
+.panchang-popup-close{
+  position:absolute;right:14px;top:14px;width:40px;height:40px;
+  border:1px solid var(--line);border-radius:50%;background:var(--soft);
+  color:var(--ink);font-size:18px;cursor:pointer;
+}
+.panchang-popup-title{
+  font-size:27px;font-weight:900;color:var(--accent);
+  padding-right:45px;margin-bottom:18px;
+}
+.panchang-popup-content{
+  line-height:1.9;font-size:16px;
+}
+.panchang-popup-content .popup-row{
+  padding:12px 0;border-bottom:1px solid var(--line);
+}
+.panchang-popup-content .popup-label{
+  display:block;color:var(--accent);font-weight:900;font-size:13px;
+}
+.panchang-popup-content .popup-value{font-weight:700}
+.panchang-popup-content .popup-full{
+  margin-top:16px;padding:15px;background:var(--soft);
+  border-radius:14px;white-space:pre-wrap;
+}
+body.popup-open{overflow:hidden}
+</style>
+
+<script>
+function openPanchangPopup(){
+  const x = data.panchang || defaults.panchang || {};
+  const content = document.getElementById('panchangPopupContent');
+  if(!content)return;
+
+  const rows = [
+    ['तारीख', x.date],
+    ['📍 स्थान', x.location],
+    ['🗓️ वार', x.week],
+    ['✨ विशेष', x.special]
+  ];
+
+  content.innerHTML = rows
+    .filter(r => r[1])
+    .map(r => '<div class="popup-row"><span class="popup-label">'+esc(r[0])+'</span><span class="popup-value">'+esc(r[1])+'</span></div>')
+    .join('');
+
+  if(x.full){
+    content.innerHTML += '<div class="popup-full">'+esc(x.full)+'</div>';
+  }
+
+  document.getElementById('panchangPopup').classList.add('show');
+  document.getElementById('panchangPopup').setAttribute('aria-hidden','false');
+  document.body.classList.add('popup-open');
+}
+
+function closePanchangPopup(){
+  const p=document.getElementById('panchangPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('popup-open');
+}
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closePanchangPopup();
+});
+</script>
+
+
+
+<!-- शुभ मुहूर्त Popup -->
+<div id="muhuratPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeMuhuratPopup()">
+  <div class="booking-popup-box muhurat-popup-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeMuhuratPopup()">✕</button>
+    <div class="booking-popup-title">🕉️ शुभ मुहूर्त</div>
+    <div class="booking-popup-sub">आपल्याला हवा असलेला मुहूर्त निवडा.</div>
+    <div class="muhurat-grid">
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('साखरपुडा मुहूर्त')">💍<span>साखरपुडा मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('विवाह मुहूर्त')">💒<span>विवाह मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('भूमिपूजन मुहूर्त')">🏡<span>भूमिपूजन मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('गृहप्रवेश मुहूर्त')">🚪<span>गृहप्रवेश मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('वास्तुशांती मुहूर्त')">🪔<span>वास्तुशांती मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('डोहाळे जेवण मुहूर्त')">🌸<span>डोहाळे जेवण मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('बारसे / नामकरण मुहूर्त')">👶<span>बारसे / नामकरण मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('जावळ मुहूर्त')">✂️<span>जावळ मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('वाहन खरेदी मुहूर्त')">🚗<span>वाहन खरेदी मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('उपनयन / मुंज मुहूर्त')">🙏<span>उपनयन / मुंज मुहूर्त</span></button>
+      <button type="button" class="muhurat-option" onclick="selectMuhurat('प्राणप्रतिष्ठा मुहूर्त')">🛕<span>प्राणप्रतिष्ठा मुहूर्त</span></button>
+    </div>
+  </div>
+</div>
+<style>
+.muhurat-popup-box{width:min(820px,100%);background:linear-gradient(180deg,#fffdf9 0%,#f7efe3 100%);border:1px solid #d7b878}
+.muhurat-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px;margin-top:18px}
+.muhurat-option{
+  position:relative;border:1px solid #b99762;
+  background:linear-gradient(135deg,#27231f 0%,#4a4035 42%,#9b8a72 100%);
+  color:#fffaf0;border-radius:20px;padding:12px 14px;text-align:left;
+  font:inherit;cursor:pointer;display:flex;align-items:center;gap:13px;
+  min-height:88px;box-sizing:border-box;overflow:hidden;
+  transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease;
+  box-shadow:0 7px 18px rgba(52,35,20,.18)
+}
+.muhurat-option::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,rgba(255,255,255,.08),transparent 48%,rgba(255,226,176,.10));pointer-events:none}
+.muhurat-option:hover{transform:translateY(-3px);border-color:#d8a84e;box-shadow:0 13px 28px rgba(52,35,20,.28)}
+.muhurat-option:active{transform:translateY(-1px) scale(.99)}
+.muhurat-option .muhurat-icon{
+  width:50px;height:50px;flex:0 0 50px;display:flex;align-items:center;justify-content:center;
+  border-radius:15px;background:linear-gradient(145deg,#f7d27e,#b77a2d);
+  border:1px solid rgba(255,245,214,.75);box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 5px 12px rgba(0,0,0,.22);
+  font-size:25px
+}
+.muhurat-option .muhurat-name-wrap{
+  flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;gap:5px;
+  padding:3px 2px
+}
+.muhurat-option .muhurat-name{
+  display:block;color:#fffdf8;font-size:19px;font-weight:900;line-height:1.35;
+  letter-spacing:.1px;text-shadow:0 2px 5px rgba(0,0,0,.7)
+}
+.muhurat-option .muhurat-sub{
+  display:block;color:#f7ead5;font-size:12px;font-weight:700;line-height:1.35;
+  text-shadow:0 1px 3px rgba(0,0,0,.65)
+}
+.muhurat-option .muhurat-custom-badge{display:inline-block;width:max-content;margin-top:1px;padding:3px 8px;border-radius:99px;background:#ffe4a8;color:#5f3b13;font-size:10px;font-weight:900;text-shadow:none}
+.muhurat-count{font-size:11px;font-weight:800;color:#ffe7b5}
+.muhurat-count.muted{color:#f4e8d7;font-weight:600}
+.muhurat-detail-list{display:grid;gap:10px}
+.muhurat-month-block{display:grid;gap:8px;margin-bottom:16px}.muhurat-month-title{padding:10px 12px;border-radius:12px;background:linear-gradient(135deg,#4a3327,#c9b79f);color:#fff;font-weight:900;font-size:15px;box-shadow:0 4px 12px rgba(70,35,10,.12)}.muhurat-detail-row{display:flex;align-items:flex-start;gap:12px;padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--paper)}
+.muhurat-detail-index{width:30px;height:30px;display:flex;align-items:center;justify-content:center;flex:none;border-radius:50%;background:var(--accent);color:#fff;font-weight:900}
+.muhurat-detail-date{margin-top:4px;color:var(--muted);font-size:14px;font-weight:700}
+.muhurat-empty{padding:14px;border:1px dashed var(--gold);border-radius:13px;background:var(--paper);line-height:1.7}
+.muhurat-empty span{color:var(--muted);font-size:13px;font-weight:600}
+@media(max-width:600px){
+  .muhurat-grid{grid-template-columns:1fr;gap:12px}
+  .muhurat-option{min-height:82px;padding:11px 12px;border-radius:18px}
+  .muhurat-option .muhurat-icon{width:46px;height:46px;flex-basis:46px;font-size:23px;border-radius:14px}
+  .muhurat-option .muhurat-name{font-size:18px;line-height:1.4}
+  .muhurat-option .muhurat-sub{font-size:11px}
+}
+</style>
+<script>
+function openMuhuratPopup(){
+  const p=document.getElementById('muhuratPopup');
+  if(!p)return;
+  try{renderMuhuratOptions();}catch(e){console.warn('Muhurat list refresh failed',e);}
+  p.classList.add('show');
+  p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+}
+function closeMuhuratPopup(){
+  const p=document.getElementById('muhuratPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+function selectMuhurat(service){
+  closeMuhuratPopup();
+  showMuhuratDetails(service);
+}
+</script>
+
+
+
+
+<!-- निवडलेला शुभ मुहूर्त Popup -->
+<div id="muhuratDetailsPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeMuhuratDetails()">
+  <div class="booking-popup-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeMuhuratDetails()">✕</button>
+    <div class="booking-popup-title">🕉️ <span id="selectedMuhuratTitle">शुभ मुहूर्त</span></div>
+    <div class="booking-popup-sub">या मुहूर्तासाठी योग्य तारीख व वेळ जाणून घेण्यासाठी संपर्क करा.</div>
+    <div class="muhurat-detail-content" style="padding:16px;background:var(--soft);border:1px solid var(--line);border-radius:15px;font-weight:800;">
+      योग्य तारीख व वेळेसाठी आपल्या पुरोहितांशी संपर्क करा.
+    </div>
+  </div>
+</div>
+<script>
+function showMuhuratDetails(service){
+  const p=document.getElementById('muhuratDetailsPopup');
+  const t=document.getElementById('selectedMuhuratTitle');
+  const box=p?.querySelector('.muhurat-detail-content'); if(!p)return;
+  const obj=typeof service==='string'?{title:service}:service||{};
+  const title=obj.title||'शुभ मुहूर्त'; if(t)t.textContent=title;
+  const items=(data.muhurats||[]).filter(x=>x.title===title);
+  const monthOrder=MUHURAT_MONTHS_ADMIN||[];
+  const monthBlocks=monthOrder.map(month=>{
+    const x=items.find(v=>v.month===month && v.date);
+    if(!x)return '';
+    return `<div class="public-muhurat-month"><div class="public-muhurat-month-name">${esc(month.replace(' 2026',''))}</div><div class="public-muhurat-dates"><b>शुभ दिनांक:</b> ${esc(x.date)}</div></div>`;
+  }).filter(Boolean).join('');
+  if(box){box.innerHTML=monthBlocks||'<div class="public-muhurat-empty">या मुहूर्ताचे शुभ दिनांक Admin कडून अद्याप जोडलेले नाहीत.</div>';}
+  p.classList.add('show'); p.setAttribute('aria-hidden','false'); document.body.classList.add('booking-popup-open');
+}
+function closeMuhuratDetails(){
+  const p=document.getElementById('muhuratDetailsPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){closeMuhuratPopup();closeMuhuratDetails();}
+});
+</script>
+
+
+<!-- आरती संग्रह Popup -->
+<div id="aartiCollectionPopup" class="booking-popup" aria-hidden="true"
+     onclick="if(event.target===this) closeAartiCollection()">
+  <div class="booking-popup-box aarti-collection-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा"
+            onclick="closeAartiCollection()">✕</button>
+    <div class="booking-popup-title">📖 आरती संग्रह</div>
+    <div class="booking-popup-sub">खालील आरती निवडून संपूर्ण आरती वाचा. Admin कडून Publish केलेल्या नवीन आरत्या याच यादीच्या खाली दिसतील.</div>
+    <div id="aartiCollectionList" class="aarti-collection-list"></div>
+    <div id="aartiReader" class="aarti-reader" hidden>
+      <div class="aarti-reader-head">
+        <h3 id="readerTitle"></h3>
+        <button type="button" class="btn alt" onclick="backToAartiList()">← संग्रह</button>
+      </div>
+      <div id="readerText" class="readbox aarti-text"></div>
+    </div>
+  </div>
+</div>
+
+<style>
+.aarti-collection-box{width:min(820px,100%)}
+.aarti-collection-list{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+.aarti-collection-item{
+  border:1px solid var(--line);background:linear-gradient(145deg,var(--paper),#fff5e5);
+  color:var(--ink);border-radius:16px;padding:15px;text-align:left;
+  font:inherit;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:11px;
+  transition:.18s ease;box-shadow:0 5px 16px rgba(70,35,10,.05)
+}
+.aarti-collection-item:hover{transform:translateY(-2px);border-color:var(--gold)}
+.aarti-reader[hidden]{display:none}
+.aarti-reader{margin-top:18px}
+.aarti-reader-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.aarti-reader-head h3{margin:0;color:var(--accent)}
+.aarti-text{font-size:18px;line-height:2.05;white-space:pre-wrap;margin-top:12px}
+@media(max-width:600px){.aarti-reader-head{align-items:flex-start;flex-direction:column}}
+@media(max-width:600px){.aarti-collection-list{grid-template-columns:1fr}}
+</style>
+
+<script>
+function renderAartiCollection(){
+  const list=document.getElementById('aartiCollectionList');
+  if(!list)return;
+  const songs=Array.isArray(data.aarti)?data.aarti:[];
+  data.aarti=songs;
+  if(!songs.length){
+    list.innerHTML='<div class="hint">अजून आरती संग्रह उपलब्ध नाही.</div>';
+  }else{
+    list.innerHTML=songs.map((x,i)=>
+      '<button type="button" class="aarti-collection-item" onclick="selectAartiFromCollection('+i+')">🪔 <span>'+esc(x.title)+'</span></button>'
+    ).join('');
+  }
+}
+window.renderAartiCollection=renderAartiCollection;
+
+function openAartiCollection(){
+  const p=document.getElementById('aartiCollectionPopup');
+  const list=document.getElementById('aartiCollectionList');
+  if(!p||!list)return;
+  // प्रत्येक वेळी popup उघडताना सध्याची Firebase/लोकल आरती लगेच दाखवा.
+  renderAartiCollection();
+  const reader=document.getElementById('aartiReader');
+  if(reader)reader.hidden=true;
+  list.style.display='grid';
+  p.classList.add('show');
+  p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+}
+function closeAartiCollection(){
+  const p=document.getElementById('aartiCollectionPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+function selectAartiFromCollection(i){
+  const songs=Array.isArray(data.aarti)?data.aarti:[];
+  const x=songs[i];
+  if(!x)return;
+  const list=document.getElementById('aartiCollectionList');
+  const reader=document.getElementById('aartiReader');
+  const title=document.getElementById('readerTitle');
+  const text=document.getElementById('readerText');
+  if(!list||!reader||!title||!text)return;
+  title.textContent='🪔 '+(x.title||'आरती');
+  text.textContent=x.text||'या आरतीचा मजकूर Admin कडून अजून जोडलेला नाही.';
+  list.style.display='none';
+  reader.hidden=false;
+}
+function backToAartiList(){
+  const reader=document.getElementById('aartiReader');
+  const list=document.getElementById('aartiCollectionList');
+  if(reader)reader.hidden=true;
+  if(list)list.style.display='grid';
+}
+</script>
+
+
+<!-- शंका समाधान Popup: Admin ने प्रकाशित केलेली प्रश्न-उत्तरे -->
+<div id="shankaPopup" class="booking-popup" aria-hidden="true"
+     onclick="if(event.target===this) closeShankaPopup()">
+  <div class="booking-popup-box shanka-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा"
+            onclick="closeShankaPopup()">✕</button>
+    <div class="booking-popup-title">❓ शंका समाधान</div>
+    <div class="booking-popup-sub">धार्मिक प्रश्न आणि त्यांची उत्तरे Admin कडून प्रकाशित केली जातात.</div>
+    <div class="shanka-list-title">📚 प्रकाशित शंका समाधान</div>
+    <div id="shankaList" class="shanka-list"></div>
+  </div>
+</div>
+
+<div id="shankaAnswerPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeShankaAnswerPopup()">
+  <div class="booking-popup-box" style="width:min(760px,100%)">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeShankaAnswerPopup()">✕</button>
+    <div class="booking-popup-title">❓ शंका समाधान</div>
+    <h3 id="shankaAnswerTitle" style="color:var(--accent);margin-top:14px"></h3>
+    <div id="shankaAnswerText" class="readbox" style="white-space:pre-wrap;line-height:2;font-size:17px;margin-top:12px"></div>
+  </div>
+</div>
+
+<style>
+.shanka-solutions{display:grid;gap:9px;margin-top:10px}
+.shanka-solution-item{border:1px solid var(--line);background:linear-gradient(145deg,var(--paper),#fff5e5);color:var(--ink);border-radius:14px;padding:14px;text-align:left;font:inherit;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:10px}
+.shanka-solution-item:hover{transform:translateY(-1px);border-color:var(--gold)}
+.shanka-box{width:min(760px,100%)}
+.shanka-form{display:grid;gap:12px;margin-top:15px}
+.shanka-form label{font-size:13px;font-weight:800}
+.shanka-form input,.shanka-form textarea{
+  width:100%;padding:11px;margin-top:5px;border:1px solid var(--line);
+  border-radius:11px;font:inherit;background:var(--paper);color:var(--ink)
+}
+.shanka-form textarea{min-height:110px;resize:vertical}
+.shanka-list-title{
+  margin-top:22px;padding:11px 13px;border-radius:12px;
+  background:var(--soft);border:1px solid var(--line);font-weight:900
+}
+.shanka-list{display:grid;gap:9px;margin-top:10px}
+.shanka-item{padding:13px;border:1px solid var(--line);border-radius:13px;background:var(--paper)}
+.shanka-item b{color:var(--accent)}
+.shanka-item p{margin:5px 0 0;color:var(--ink);white-space:pre-wrap}
+.shanka-empty{color:var(--muted);font-size:13px}
+</style>
+
+<script>
+function renderPublicShankaSolutions(){
+  const el=document.getElementById('shankaList');
+  if(!el)return;
+  const list=Array.isArray(data.shanka)?data.shanka:[];
+  if(!list.length){
+    el.innerHTML='<div class="shanka-empty">अजून कोणतेही शंका समाधान Admin कडून प्रकाशित केलेले नाही.</div>';
+    return;
+  }
+  el.innerHTML=list.map((x,i)=>`
+    <button type="button" class="shanka-solution-item" onclick="selectShankaSolution(${i})">
+      <span class="shanka-post-icon">❓</span>
+      <span class="shanka-post-body">
+        <b>${esc(x.title||'शंका समाधान')}</b>
+        <small>${esc((x.text||'').slice(0,100))}${(x.text||'').length>100?'…':''}</small>
+      </span>
+      <span class="shanka-post-arrow">→</span>
+    </button>`).join('');
+}
+
+function selectShankaSolution(i){
+  const x=(data.shanka||[])[i]; if(!x)return;
+  const p=document.getElementById('shankaAnswerPopup');
+  if(!p)return;
+  document.getElementById('shankaAnswerTitle').textContent=x.title||'शंका समाधान';
+  document.getElementById('shankaAnswerText').textContent=x.text||'';
+  p.classList.add('show');
+  p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+}
+
+function closeShankaAnswerPopup(){
+  const p=document.getElementById('shankaAnswerPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+
+function renderShanka(){
+  renderPublicShankaSolutions();
+}
+
+function openShankaPopup(){
+  const p=document.getElementById('shankaPopup');
+  if(!p)return;
+  renderPublicShankaSolutions();
+  p.classList.add('show');
+  p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+}
+
+function closeShankaPopup(){
+  const p=document.getElementById('shankaPopup');
+  if(!p)return;
+  p.classList.remove('show');
+  p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+</script>
+
+
+<script>
+(function(){
+  const WA_NUMBER = '918888585474';
+
+  window.openBookingPopup = function(){
+    const p = document.getElementById('bookingPopup');
+    if(!p) return;
+    p.classList.add('show');
+    p.setAttribute('aria-hidden','false');
+    document.body.classList.add('booking-popup-open');
+
+    const d = document.getElementById('bookingDate');
+    if(d && !d.value){
+      const n = new Date();
+      d.value = n.getFullYear() + '-' +
+        String(n.getMonth()+1).padStart(2,'0') + '-' +
+        String(n.getDate()).padStart(2,'0');
+    }
+  };
+
+  window.openContactPopup = function(){const p=document.getElementById('contactPopup');if(!p)return;p.classList.add('show');p.setAttribute('aria-hidden','false');document.body.classList.add('booking-popup-open')};
+window.closeContactPopup = function(){const p=document.getElementById('contactPopup');if(!p)return;p.classList.remove('show');p.setAttribute('aria-hidden','true');document.body.classList.remove('booking-popup-open')};
+window.closeBookingPopup = function(){
+    const p = document.getElementById('bookingPopup');
+    if(!p) return;
+    p.classList.remove('show');
+    p.setAttribute('aria-hidden','true');
+    document.body.classList.remove('booking-popup-open');
+  };
+
+
+  // ===== UPI ADVANCE =====
+  // Public UPI ID only; no UPI password/PIN is stored in this site.
+  const DEFAULT_UPI_ID = '9860157041@ibl';
+  const REQUIRED_ADVANCE = 500;
+  let advancePaymentStarted = false;
+  let configuredUpiId = DEFAULT_UPI_ID;
+
+  function validUpi(v){
+    return /^[A-Za-z0-9._-]{2,256}@[A-Za-z0-9._-]{2,64}$/.test(v);
+  }
+
+  function getUpiPayLink(){
+    const pa = validUpi(configuredUpiId) ? configuredUpiId : DEFAULT_UPI_ID;
+    return 'upi://pay?pa=' + encodeURIComponent(pa)
+      + '&pn=' + encodeURIComponent('पुरोहित सेवा')
+      + '&am=' + REQUIRED_ADVANCE.toFixed(2)
+      + '&cu=INR'
+      + '&tn=' + encodeURIComponent('Purohit Seva Puja Advance ₹500');
+  }
+
+  async function loadPublicUpiId(){
+    try{
+      if(window.firebaseGetUpiId){
+        const cloudUpi = await window.firebaseGetUpiId();
+        if(validUpi(cloudUpi)) configuredUpiId = cloudUpi;
+      }
+    }catch(e){ console.error(e); }
+  }
+
+  document.addEventListener('DOMContentLoaded', async function(){
+    const payBtn = document.getElementById('payAdvanceBtn');
+    const status = document.getElementById('advancePaymentStatus');
+    const advance = document.getElementById('bookingAdvance');
+
+    if(advance){ advance.value='₹500'; advance.readOnly=true; }
+    await loadPublicUpiId();
+
+    if(payBtn){
+      payBtn.addEventListener('click', async function(){
+        // Refresh once before payment so an admin UPI change is picked up.
+        await loadPublicUpiId();
+        advancePaymentStarted = true;
+        if(status) status.textContent = 'UPI App उघडत आहे… ₹500 रक्कम आधीच सेट आहे.';
+        window.location.href = getUpiPayLink();
+      });
+    }
+  });
+  // ===== END UPI ADVANCE =====
+
+  window.sendPujaBookingWhatsApp = function(e){
+    e.preventDefault();
+
+    if(!advancePaymentStarted){
+      alert('कृपया प्रथम ₹500 ॲडव्हान्स UPI ने भरा.');
+      document.getElementById('payAdvanceBtn')?.focus();
+      return;
+    }
+
+    const get = id => (document.getElementById(id)?.value || '').trim();
+    const puja=get('bookingPuja'), date=get('bookingDate'), time=get('bookingTime');
+    const name=get('bookingName'), mobile=get('bookingMobile');
+    const address=get('bookingAddress'), advance='₹500 (अनिवार्य)';
+    const note=get('bookingNote') || 'नाही';
+
+    if(!puja || !date || !time || !name || !address || !/^[0-9]{10}$/.test(mobile)){
+      alert('कृपया सर्व आवश्यक माहिती योग्य प्रकारे भरा.');
+      return;
+    }
+
+    const dt = new Date(date + 'T00:00:00');
+    const dateMr = isNaN(dt.getTime()) ? date :
+      String(dt.getDate()).padStart(2,'0') + '/' +
+      String(dt.getMonth()+1).padStart(2,'0') + '/' + dt.getFullYear();
+
+    const message =
+`🪔 *पूजा बुकिंग विनंती*
+
+🛕 पूजेचे नाव: ${puja}
+दिनांक: ${dateMr}
+⏰ वेळ: ${time}
+👤 नाव: ${name}
+📱 मोबाईल: ${mobile}
+📍 पत्ता / लँडमार्क: ${address}
+💰 ॲडव्हान्स: ${advance}
+📝 विशेष सूचना: ${note}
+
+ℹ️ *टीप:* WhatsApp वर बुकिंगचा मेसेज पाठवल्यानंतर *कन्फर्मेशन कॉल करण्यात येईल.*
+
+🙏 *पुरोहित सेवा*`;
+
+    window.location.href =
+      'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(message);
+  };
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const card=document.getElementById('pujaBookingCard');
+    if(card){
+      card.addEventListener('click', function(e){
+        e.preventDefault();
+        window.openBookingPopup();
+      });
+    }
+  });
+})();
+</script>
+
+
+
+<!-- ===== FIREBASE READY INTEGRATION ===== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import {
+  getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import {
+  getFirestore, collection, doc, setDoc, getDoc, deleteDoc, onSnapshot,
+  query, orderBy, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+/*
+  फक्त खालील CONFIG आणि ADMIN UID Firebase Console मधून भरा.
+  Service Account private key येथे कधीही टाकू नका.
+*/
+const firebaseConfig = {
+  apiKey: "AIzaSyDzlZSCtmsDuGRricbC2-vovYwVsS4mygE",
+  authDomain: "purohit-seva-4cb43.firebaseapp.com",
+  projectId: "purohit-seva-4cb43",
+  storageBucket: "purohit-seva-4cb43.firebasestorage.app",
+  messagingSenderId: "940218582488",
+  appId: "1:940218582488:web:f42f372ee2c62bd8badead"
+};
+
+window.ADMIN_UID = "gq3LGY0kBLffFlbLMwfQfA3ENfh2";
+const ADMIN_UID = window.ADMIN_UID;
+
+window.firebaseConsoleReady = false;
+window.firebaseAdminUser = null;
+
+const ready = Object.values(firebaseConfig).every(v =>
+  v && !String(v).includes("PASTE_")
+) && ADMIN_UID && !ADMIN_UID.includes("PASTE_");
+
+if (Object.values(firebaseConfig).every(v => v && !String(v).includes("PASTE_"))) {
+  try {
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    window.firebaseConsoleReady = true;
+    window.firebaseCloud = {app, auth, db, collection, doc, setDoc, getDoc, deleteDoc,
+      onSnapshot, query, orderBy, serverTimestamp,
+      signInWithEmailAndPassword, signOut};
+
+    window.firebaseAdminLogin = (email, password) =>
+      signInWithEmailAndPassword(auth, email, password);
+
+    window.firebaseAdminLogout = () => signOut(auth);
+
+    window.firebasePublish = async (collectionName, id, payload) => {
+      if (!window.firebaseConsoleReady) throw new Error("Firebase config भरलेले नाही.");
+      if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) throw new Error("Admin authorization required.");
+      const ref = doc(db, collectionName, id);
+      await setDoc(ref, {
+        ...payload,
+        published: true,
+        updatedAt: serverTimestamp()
+      }, {merge:true});
+      return ref.id;
+    };
+
+    window.firebaseRemove = async (collectionName, id) => {
+      if (!window.firebaseConsoleReady) throw new Error("Firebase config भरलेले नाही.");
+      if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) throw new Error("Admin authorization required.");
+      await deleteDoc(doc(db, collectionName, id));
+    };
+
+    // UPI ID is a public payment destination, never a secret.
+    window.firebaseGetUpiId = async () => {
+      try {
+        const snap = await getDoc(doc(db, "settings", "upi"));
+        const v = snap.exists() ? String(snap.data().upiId || "").trim() : "";
+        return /^[A-Za-z0-9._-]{2,256}@[A-Za-z0-9._-]{2,64}$/.test(v) ? v : "";
+      } catch (e) {
+        console.error("UPI setting read failed:", e);
+        return "";
+      }
+    };
+
+    window.firebaseSaveUpiId = async (upiId) => {
+      if (!window.firebaseConsoleReady) throw new Error("Firebase config भरलेले नाही.");
+      if (!auth.currentUser || auth.currentUser.uid !== ADMIN_UID) throw new Error("Admin authorization required.");
+      if (!/^[A-Za-z0-9._-]{2,256}@[A-Za-z0-9._-]{2,64}$/.test(upiId)) throw new Error("Invalid UPI ID.");
+      await setDoc(doc(db, "settings", "upi"), {
+        upiId,
+        updatedAt: serverTimestamp(),
+        updatedBy: auth.currentUser.uid
+      }, {merge:true});
+    };
+
+    // Public live sync.
+    const maps = {
+      aarti: "aarti",
+      shubhMuhurt: "muhurats",
+      stotra: "stotra",
+      shanka: "shanka",
+      youtube: "youtube"
+    };
+
+    onSnapshot(doc(db, "settings", "site"), snap => {
+      if(snap.exists()) window.dispatchEvent(new CustomEvent("firebase-site-settings-update", {detail:snap.data()}));
+    }, err => console.warn("Firebase site settings sync:", err));
+
+    Object.entries(maps).forEach(([collectionName, dataKey]) => {
+      const q = query(collection(db, collectionName), orderBy("updatedAt", "desc"));
+      onSnapshot(q, snap => {
+        const items = snap.docs.map(d => ({id:d.id, ...d.data()}));
+        window.dispatchEvent(new CustomEvent("firebase-public-update", {
+          detail: {dataKey, items}
+        }));
+      }, err => console.error("Firebase live sync:", collectionName, err));
+    });
+
+    onAuthStateChanged(auth, user => {
+      window.firebaseAdminUser = user || null;
+      window.dispatchEvent(new CustomEvent("firebase-auth-change", {
+        detail:{user}
+      }));
+    });
+  } catch (e) {
+    console.error("Firebase initialization failed:", e);
+  }
+}
+</script>
+
+<!-- Dynamic Admin Login & Dashboard -->
+<div id="adminLoginPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeAdminLogin()">
+  <div class="booking-popup-box admin-auth-box">
+    <button class="booking-popup-close" type="button" onclick="closeAdminLogin()">✕</button>
+    <div class="booking-popup-title">🔐 Admin Login</div>
+    <div class="booking-popup-sub">फक्त Admin साठी व्यवस्थापन पॅनेल.</div>
+    <form onsubmit="adminLogin(event)" class="admin-login-form">
+      <label>Email<input id="adminUsername" type="email" autocomplete="username" required placeholder="Email"></label>
+      <label>Password<input id="adminPassword" type="password" autocomplete="current-password" required placeholder="Password"></label>
+      <button class="btn" type="submit">🔓 Login करा</button>
+      
+    </form>
+  </div>
+</div>
+
+<div id="adminDashboardPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeAdminDashboard()">
+  <div class="booking-popup-box admin-dashboard-box">
+    <button class="booking-popup-close" type="button" onclick="closeAdminDashboard()">✕</button>
+    <div class="admin-head-row">
+      <div><div class="booking-popup-title">🛠️ Admin Dashboard</div><div class="booking-popup-sub">आरती, शुभ मुहूर्त आणि स्तोत्र संग्रह व्यवस्थापित करा.</div></div>
+      <button class="btn alt" type="button" onclick="adminLogout()">🚪 Logout</button>
+    </div>
+    <div class="admin-delete-working-note" id="adminDeleteStatus">☁️ Firebase व्यवस्थापन सक्रिय — येथे Save, Edit किंवा Delete केलेले बदल संबंधित सार्वजनिक संग्रहात लगेच लागू होतील.</div>
+    <div class="admin-tabs-v2">
+      <button class="tab-v2 active" onclick="switchAdminSection('aartiAdmin',this)">🪔 आरती संग्रह</button>
+      <button class="tab-v2" onclick="switchAdminSection('muhuratAdmin',this)">🕉️ शुभ मुहूर्त</button>
+      <button class="tab-v2" onclick="switchAdminSection('stotraAdmin',this)">📿 स्तोत्र संग्रह</button>
+      <button class="tab-v2" onclick="switchAdminSection('shankaAdmin',this)">❓ शंका समाधान</button>
+      <button class="tab-v2" onclick="switchAdminSection('templeBookingAdminDashboard',this); renderTempleBookingsAdmin()">🛕 ऑनलाईन बुकिंग / दर्शन</button>
+      <button class="tab-v2" onclick="switchAdminSection('youtubeAdmin',this); renderYoutubeAdmin()">▶️ लाईव्ह दर्शन</button>
+      <button class="tab-v2" onclick="switchAdminSection('settingsAdmin',this)">⚙️ Settings</button>
+      <button class="tab-v2" onclick="switchAdminSection('websiteEditorAdmin',this); renderSiteEditor()">🌐 Website Editor</button>
+    </div>
+
+    <section id="aartiAdmin" class="admin-section-v2">
+      <h3>➕ नवीन आरती जोडा</h3>
+      <input id="adminAartiTitle" placeholder="आरतीचे नाव उदा. श्री विठ्ठलाची आरती">
+      <textarea id="adminAartiText" placeholder="आरतीचा संपूर्ण मजकूर येथे लिहा किंवा Paste करा"></textarea>
+      <div class="admin-form-actions"><button class="btn" id="adminAartiSaveBtn" onclick="adminAddAarti()">💾 Save / Publish</button><button class="btn alt" id="adminAartiCancelBtn" type="button" onclick="cancelAdminEdit('aarti')" style="display:none">✖️ Cancel Edit</button></div>
+      <div id="adminAartiList" class="admin-items-v2"></div>
+    </section>
+
+    <section id="muhuratAdmin" class="admin-section-v2" style="display:none">
+      <h3>🕉️ शुभ मुहूर्त व्यवस्थापन</h3>
+      <button class="btn" type="button" onclick="openMuhuratAdminForm()">➕ मुहूर्ताची तारीख जोडा</button>
+      <div class="admin-popup-note">प्रत्येक प्रकारासाठी <b>जानेवारी ते डिसेंबर</b> महिन्यानुसार कितीही शुभ तारखा जोडता येतील. उदाहरण: साखरपुडा → जानेवारी → 5, 12, 18. सेव्ह केल्यावर त्या प्रकारावर क्लिक केल्यास सर्व महिन्यांच्या तारखा दिसतील.</div>
+      <div id="adminMuhuratList" class="admin-items-v2"></div>
+    </section>
+
+<!-- Admin शुभ मुहूर्त Add/Edit Popup -->
+<div id="adminMuhuratFormPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeMuhuratAdminForm()">
+  <div class="booking-popup-box admin-muhurat-form-box">
+    <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeMuhuratAdminForm()">✕</button>
+    <div class="booking-popup-title">🕉️ <span id="adminMuhuratPopupTitle">शुभ मुहूर्त — महिन्यानुसार शुभ दिनांक</span></div>
+    <div class="booking-popup-sub">मुहूर्ताचा प्रकार निवडा. प्रत्येक महिन्याखाली फक्त <b>शुभ दिनांक</b> भरा. एकाच महिन्यात अनेक तारखा असल्यास स्वल्पविरामाने लिहा.</div>
+    <label class="muhurat-field-label">🕉️ मुहूर्ताचा प्रकार
+      <select id="adminMuhuratCategory">
+        <option value="">मुहूर्ताचा प्रकार निवडा</option>
+        <option value="साखरपुडा मुहूर्त">💍 साखरपुडा मुहूर्त</option>
+        <option value="विवाह मुहूर्त">💒 विवाह मुहूर्त</option>
+        <option value="भूमिपूजन मुहूर्त">🏡 भूमिपूजन मुहूर्त</option>
+        <option value="गृहप्रवेश मुहूर्त">🚪 गृहप्रवेश मुहूर्त</option>
+        <option value="वास्तुशांती मुहूर्त">🪔 वास्तुशांती मुहूर्त</option>
+        <option value="डोहाळे जेवण मुहूर्त">🌸 डोहाळे जेवण मुहूर्त</option>
+        <option value="बारसे / नामकरण मुहूर्त">👶 बारसे / नामकरण मुहूर्त</option>
+        <option value="जावळ मुहूर्त">✂️ जावळ मुहूर्त</option>
+        <option value="वाहन खरेदी मुहूर्त">🚗 वाहन खरेदी मुहूर्त</option>
+        <option value="उपनयन / मुंज मुहूर्त">🙏 उपनयन / मुंज मुहूर्त</option>
+        <option value="प्राणप्रतिष्ठा मुहूर्त">🛕 प्राणप्रतिष्ठा मुहूर्त</option>
+      </select>
+    </label>
+    <div class="muhurat-months-admin-title">2026 — प्रत्येक महिन्याचे शुभ दिनांक</div>
+    <div id="adminMuhuratMonthsGrid" class="admin-muhurat-months-grid"></div>
+    <div class="admin-muhurat-date-hint">उदा. <b>5, 12, 18</b> — फक्त दिनांक लिहा. शुभ वेळ देण्याची गरज नाही.</div>
+    <div class="admin-form-actions">
+      <button class="btn" id="adminMuhuratSaveBtn" type="button" onclick="adminAddMuhurat()">💾 सर्व महिने Save / Publish</button>
+      <button class="btn alt" id="adminMuhuratCancelBtn" type="button" onclick="cancelAdminEdit('muhurat')" style="display:none">✖️ Cancel Edit</button>
+    </div>
+  </div>
+</div>
+<style>
+.admin-popup-note{margin:10px 0 14px;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:var(--soft);color:var(--muted);font-size:13px;line-height:1.6}
+.admin-muhurat-form-box{width:min(760px,100%)}
+.admin-muhurat-form-box input,.admin-muhurat-form-box select{width:100%;box-sizing:border-box;margin-top:8px}
+.muhurat-months-admin-title{margin-top:18px;padding:12px 14px;border-radius:14px;background:linear-gradient(135deg,#3a3028,#7a6049);color:#fff;font-weight:900;font-size:15px}
+.admin-muhurat-months-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:12px}
+.admin-muhurat-month-card{padding:12px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(145deg,var(--soft),#fff8ee);box-shadow:0 4px 12px rgba(70,35,10,.06)}
+.admin-muhurat-month-card b{display:block;color:var(--ink);font-size:15px;margin-bottom:6px}
+.admin-muhurat-month-card input{padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit;font-weight:700}
+.admin-muhurat-date-hint{font-size:12px;color:var(--muted);margin-top:8px}
+@media(max-width:600px){.admin-muhurat-months-grid{grid-template-columns:1fr}.admin-muhurat-form-box{max-height:92vh;overflow:auto}}
+</style>
+
+    <section id="stotraAdmin" class="admin-section-v2" style="display:none">
+      <h3>➕ नवीन स्तोत्र जोडा</h3>
+      <button class="btn" type="button" onclick="openStotraAdminPopup()">📿 स्तोत्र जोडा</button>
+      <div id="adminStotraList" class="admin-items-v2"></div>
+    </section>
+
+<section id="onlineDarshanBooking" class="wrap" style="display:none">
+  <div class="section-head">
+    <div><div class="eyebrow">मंदिर सेवा</div><div class="title">🛕 ऑनलाईन बुकिंग / दर्शन</div></div>
+  </div>
+  <div id="templeBookingPublicGrid" class="temple-booking-grid quick-option-grid"></div>
+</section>
+
+
+    <div id="stotraAdminPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeStotraAdminPopup()">
+      <div class="booking-popup-box" style="width:min(760px,100%)">
+        <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeStotraAdminPopup()">✕</button>
+        <div class="booking-popup-title">📿 स्तोत्र जोडा</div>
+        <div class="booking-popup-sub">स्तोत्राचे नाव आणि संपूर्ण स्तोत्र येथे भरा.</div>
+        <label style="display:block;font-weight:800;margin-top:14px">📿 स्तोत्राचे नाव<input id="adminStotraTitle" placeholder="उदा. श्री रामरक्षा स्तोत्र" style="width:100%;padding:12px;margin-top:6px;border:1px solid var(--line);border-radius:11px;font:inherit"></label>
+        <label style="display:block;font-weight:800;margin-top:14px">📝 संपूर्ण स्तोत्र<textarea id="adminStotraText" placeholder="स्तोत्राचा संपूर्ण मजकूर येथे लिहा किंवा Paste करा" style="width:100%;min-height:260px;padding:12px;margin-top:6px;border:1px solid var(--line);border-radius:11px;font:inherit;resize:vertical"></textarea></label>
+        <div class="admin-form-actions" style="margin-top:14px">
+          <button class="btn" id="adminStotraSaveBtn" type="button" onclick="adminAddStotra()">💾 Save / Publish</button>
+          <button class="btn alt" id="adminStotraCancelBtn" type="button" onclick="cancelAdminEdit('stotra');closeStotraAdminPopup()" style="display:none">✖️ Cancel Edit</button>
+        </div>
+      </div>
+    </div>
+<section id="shankaAdmin" class="admin-section-v2" style="display:none">
+      <h3>➕ नवीन शंका समाधान जोडा</h3>
+      <button class="btn" type="button" onclick="openShankaAdminPopup()">❓ शंका समाधान जोडा</button>
+      <div class="admin-popup-note">पॉपअपमध्ये शंका/प्रश्न आणि त्याचे उत्तर भरा. सेव्ह केल्यानंतर ते बाहेरील <b>शंका समाधान</b> मध्ये लगेच दिसेल.</div>
+      <div id="adminShankaList" class="admin-items-v2"></div>
+    </section>
+
+<section id="templeBookingAdminDashboard" class="admin-section-v2" style="display:none">
+  <h3>🛕 ऑनलाईन बुकिंग / दर्शन</h3>
+  <div class="admin-popup-note">जास्तीत जास्त <b>20 मंदिरांची</b> अधिकृत बुकिंग / दर्शन वेबसाइट सेट करा.</div>
+  <div id="templeBookingAdminList"></div>
+  <div class="admin-form-actions">
+    <button class="btn alt" type="button" onclick="addTempleBookingRow()">➕ नवीन मंदिर</button>
+    <button class="btn" type="button" onclick="saveTempleBookings()">💾 सर्व Save</button>
+  </div>
+  <div class="hint">प्रत्येक नोंदीसाठी ✏️ Edit, 💾 Save आणि 🗑️ Delete उपलब्ध आहे.</div>
+</section>
+
+
+    <div id="shankaAdminPopup" class="booking-popup" aria-hidden="true" onclick="if(event.target===this) closeShankaAdminPopup()">
+      <div class="booking-popup-box" style="width:min(760px,100%)">
+        <button class="booking-popup-close" type="button" aria-label="बंद करा" onclick="closeShankaAdminPopup()">✕</button>
+        <div class="booking-popup-title">❓ शंका समाधान जोडा</div>
+        <div class="booking-popup-sub">शंकेचा प्रश्न आणि त्याचे उत्तर येथे भरा.</div>
+        <label style="display:block;font-weight:800;margin-top:14px">❓ शंकेचा प्रश्न
+          <input id="adminShankaTitle" placeholder="उदा. पूजा करताना कोणता मुहूर्त पाहावा?" style="width:100%;padding:12px;margin-top:6px;border:1px solid var(--line);border-radius:11px;font:inherit">
+        </label>
+        <label style="display:block;font-weight:800;margin-top:14px">📝 उत्तर / समाधान
+          <textarea id="adminShankaText" placeholder="शंकेचे उत्तर किंवा समाधान येथे लिहा" style="width:100%;min-height:240px;padding:12px;margin-top:6px;border:1px solid var(--line);border-radius:11px;font:inherit;resize:vertical"></textarea>
+        </label>
+        <div class="admin-form-actions" style="margin-top:14px">
+          <button class="btn" id="adminShankaSaveBtn" type="button" onclick="adminAddShanka()">💾 Save / Publish</button>
+          <button class="btn alt" id="adminShankaCancelBtn" type="button" onclick="cancelAdminEdit('shanka');closeShankaAdminPopup()" style="display:none">✖️ Cancel Edit</button>
+        </div>
+      </div>
+    </div>
+
+    <section id="youtubeAdmin" class="admin-section-v2" style="display:none">
+      <h3>▶️ लाईव्ह दर्शन व्यवस्थापन</h3>
+      <div class="admin-popup-note">चॅनेलचे नाव आणि YouTube लिंक भरा. Save / Publish केल्यानंतर ते बाहेरच्या YouTube पर्यायामध्ये दिसेल.</div>
+      <input id="adminYoutubeTitle" placeholder="चॅनेलचे नाव उदा. पुरोहित सेवा YouTube Channel">
+      <input id="adminYoutubeUrl" placeholder="https://www.youtube.com/@channel" style="margin-top:10px">
+      <div class="admin-form-actions" style="margin-top:12px">
+        <button class="btn" id="adminYoutubeSaveBtn" type="button" onclick="adminAddYoutube()">💾 Save / Publish</button>
+        <button class="btn alt" id="adminYoutubeCancelBtn" type="button" onclick="cancelYoutubeEdit()" style="display:none">✖️ Cancel Edit</button>
+      </div>
+      <div id="adminYoutubeList" class="admin-items-v2"></div>
+    </section>
+
+<section id="settingsAdmin" class="admin-section-v2" style="display:none">
+      <h3>⚙️ Admin Settings</h3>
+      <div class="cloud-panel">
+        <b>☁️ Public Cloud Sync</b>
+        <div class="hint">Admin कडून Publish केलेली माहिती सर्व मोबाईल/कम्प्युटरवर दाखवण्यासाठी Firebase Cloud Sync वापरले जाते.</div>
+        <div id="cloudStatus" class="cloud-status">🟠 Firebase configuration तपासणी बाकी</div>
+        <button class="btn alt" type="button" onclick="testCloudConnection()">🔥 Firebase Connection तपासा</button>
+        <button class="btn" type="button" onclick="syncFromCloud().then(()=>{render();renderAdminV2();renderMuhuratOptions();renderShanka();alert('🔥 Firebase मधील माहिती लोड झाली.');})">🔄 Firebase Data Refresh</button>
+      </div>
+      <p class="hint">🔐 अधिकृत व्यवस्थापक लॉगिन माहिती वापरा.</p>
+      <hr>
+      <button class="btn alt" onclick="exportAdminData()">⬇️ Data Backup JSON</button>
+      <button class="btn alt" onclick="importAdminDataPrompt()">⬆️ Data Restore JSON</button>
+      <button class="btn danger" onclick="resetAdminData()">♻️ Default Data Restore</button>
+    
+      <hr>
+      <div class="cloud-panel" id="upiAdminSettingsBlock">
+        <b>🔐 UPI ॲडव्हान्स सेटिंग</b>
+        <div class="hint">सध्याचा अनिवार्य ॲडव्हान्स: ₹500. येथे फक्त UPI ID बदलता येईल.</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
+          <input id="adminUpiId" type="text" placeholder="उदा. 9860157041@ibl"
+                 style="flex:1;min-width:240px;">
+          <button class="btn" type="button" id="saveAdminUpiBtn">💾 UPI ID सेव्ह करा</button>
+        </div>
+        <div id="adminUpiStatus" class="hint" style="margin-top:8px;"></div>
+      </div>
+</section>
+
+<section id="websiteEditorAdmin" class="admin-section-v2" style="display:none">
+  <h3>🌐 Website Editor — बाहेर दिसणारे पर्याय</h3>
+  <div class="admin-popup-note">येथून बाहेरच्या वेबसाइटवरील पर्याय <b>Edit / Hide</b> करता येतील. Hide म्हणजे Delete न करता तो पर्याय वेबसाइटवरून लपवला जाईल. पुन्हा Show करून परत आणता येईल.</div>
+
+  <div class="site-editor-panel">
+    <h4>🎨 रंग, फॉन्ट आणि अक्षरांचा आकार</h4>
+    <div class="site-editor-grid">
+      <label>मुख्य रंग<input id="siteAccentColor" type="color"></label>
+      <label>सोनेरी रंग<input id="siteGoldColor" type="color"></label>
+      <label>पार्श्वभूमी<input id="siteBgColor" type="color"></label>
+      <label>मजकूर रंग<input id="siteInkColor" type="color"></label>
+      <label>फॉन्ट<select id="siteFontFamily"><option value="Noto Sans Devanagari">Noto Sans Devanagari</option><option value="Nirmala UI">Nirmala UI</option><option value="Arial">Arial</option><option value="sans-serif">System Sans</option></select></label>
+      <label>Base Font Size<input id="siteBaseFont" type="number" min="13" max="24" step="1"></label>
+      <label>Heading Size<input id="siteHeadingFont" type="number" min="24" max="60" step="1"></label>
+    </div>
+    <div class="admin-form-actions"><button class="btn" type="button" onclick="saveSiteAppearance()">💾 रंग / फॉन्ट सेव्ह करा</button><button class="btn alt" type="button" onclick="resetSiteAppearance()">♻️ Default Design</button></div>
+  </div>
+
+  <div class="site-editor-panel">
+    <h4>🏠 मुख्य पानाचा Hero मजकूर</h4>
+    <label>वरची ओळ<input id="siteHeroBadgeInput"></label>
+    <label>मुख्य Heading<input id="siteHeroTitleInput"></label>
+    <label>खालील मजकूर<textarea id="siteHeroSubInput" rows="2"></textarea></label>
+    <button class="btn" type="button" onclick="saveSiteHero()">💾 Hero सेव्ह करा</button>
+  </div>
+
+  <div class="site-editor-panel">
+    <h4>🌺 बाहेरील सर्व Quick Options</h4>
+    <div id="siteQuickEditorList" class="site-quick-editor-list"></div>
+  </div>
+
+  <div class="site-editor-panel">
+    <h4>➕ नवीन Website Option तयार करा</h4>
+    <div class="admin-popup-note">हा पर्याय Save केल्यावर तो बाहेरच्या <b>“वेबसाईटमधील सर्व पर्याय”</b> मध्ये आपोआप दिसेल. नंतर याच ठिकाणी त्याचे <b>Edit / Hide / Delete</b> करता येईल.</div>
+    <div class="site-editor-grid">
+      <label>Icon / Emoji<input id="newQuickIcon" value="✨" maxlength="8" placeholder="उदा. 📜"></label>
+      <label>पर्यायाचे नाव<input id="newQuickTitle" placeholder="उदा. धार्मिक लेख"></label>
+      <label>छोटे वर्णन<input id="newQuickDesc" placeholder="उदा. धार्मिक माहिती व लेख"></label>
+      <label>कुठे उघडायचे?
+        <select id="newQuickActionType" onchange="updateNewQuickActionHint()">
+          <option value="section">Website मधील Section</option>
+          <option value="url">External / Website URL</option>
+        </select>
+      </label>
+      <label>Link / Section ID<input id="newQuickTarget" placeholder="उदा. #shastra किंवा https://example.com"></label>
+      <label style="display:flex;align-items:center;gap:8px;margin-top:27px"><input id="newQuickExternal" type="checkbox" style="width:auto;margin:0"> नवीन tab मध्ये उघडा</label>
+    </div>
+    <div id="newQuickActionHint" class="hint">उदा. #shastra, #booking, #seva — वेबसाइटमधील त्या section कडे नेईल.</div>
+    <div class="admin-form-actions"><button class="btn" type="button" onclick="addCustomQuickOption()">➕ Website वर Add करा</button><button class="btn alt" type="button" onclick="clearCustomQuickForm()">✖️ Clear</button></div>
+  </div>
+
+  <div class="site-editor-panel">
+    <h4>🧩 माझे नवीन Options</h4>
+    <div id="customQuickEditorList" class="site-quick-editor-list"></div>
+  </div>
+
+  <div class="site-editor-panel">
+    <h4>📞 संपर्क माहिती</h4>
+    <div class="site-editor-grid">
+      <label>नाव / शीर्षक<input id="siteContactNameInput"></label>
+      <label>उपशीर्षक<input id="siteContactSubInput"></label>
+      <label>क्रमांक 1<input id="siteContact1Input"></label>
+      <label>क्रमांक 2<input id="siteContact2Input"></label>
+      <label>क्रमांक 3<input id="siteContact3Input"></label>
+      <label>पत्ता<input id="siteContactAddressInput"></label>
+    </div>
+    <button class="btn" type="button" onclick="saveSiteContact()">💾 संपर्क सेव्ह करा</button>
+  </div>
+
+  <div class="site-editor-panel">
+    <h4>📲 पूजा Booking</h4>
+    <div class="site-editor-grid">
+      <label>Booking Title<input id="siteBookingTitleInput"></label>
+      <label>Booking Subtitle<input id="siteBookingSubInput"></label>
+    </div>
+    <label>पूजेचे पर्याय — प्रत्येक ओळीत एक सेवा<textarea id="siteBookingServicesInput" rows="8" placeholder="गृहप्रवेश पूजा
+वास्तुशांती
+सत्यनारायण पूजा"></textarea></label>
+    <div class="admin-form-actions"><button class="btn" type="button" onclick="saveSiteBooking()">💾 Booking सेव्ह करा</button><button class="btn alt" type="button" onclick="resetSiteBooking()">♻️ Default Services</button></div>
+  </div>
+
+  
+  <div class="site-editor-panel">
+    <h4>🔧 इतर Admin Controls</h4>
+    <div class="admin-popup-note">आरती, शुभ मुहूर्त, स्तोत्र आणि शंका समाधान यांना स्वतंत्रपणे <b>Edit / Delete</b> बटन आहेत. Data Backup/Restore, Firebase Refresh आणि UPI ID Settings खाली Settings मध्ये आहेत.</div>
+  </div>
+</section>
+  </div>
+</div>
+
+<style>
+.admin-login-nav{border:1px solid var(--line);background:var(--paper);color:var(--accent);padding:8px 12px;border-radius:999px;font-weight:900;cursor:pointer}
+.admin-auth-box{max-width:480px}.admin-login-form{display:grid;gap:14px}.admin-login-form label{font-weight:800}.admin-login-form input,.admin-section-v2 input,.admin-section-v2 textarea{width:100%;padding:12px;margin-top:5px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);font:inherit}.admin-login-form input{margin-top:6px}.admin-login-hint{font-size:13px;padding:10px;border-radius:10px;background:var(--soft);color:var(--muted)}
+.admin-dashboard-box{width:min(1000px,100%)}.admin-head-row{display:flex;justify-content:space-between;gap:16px;align-items:flex-start}.admin-tabs-v2{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 18px}.tab-v2{border:1px solid var(--line);background:var(--paper);color:var(--ink);padding:9px 14px;border-radius:999px;cursor:pointer;font-weight:900}.tab-v2.active{background:var(--accent);color:#fff}.admin-section-v2{display:grid;gap:10px}.admin-section-v2 h3{margin:4px 0}.admin-section-v2 textarea{min-height:180px;resize:vertical}.admin-security-note{padding:12px 14px;border:1px solid #edd5ac;background:#fff8eb;border-radius:12px;font-size:13px;color:#6e553e}.cloud-panel{display:grid;gap:9px;padding:14px;border:1px solid var(--line);border-radius:14px;background:var(--soft)}.cloud-status{font-weight:800}.admin-items-v2{display:grid;gap:9px;margin-top:10px}.admin-item-v2{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 14px;border:1px solid var(--line);border-radius:13px;background:var(--soft)}.admin-item-v2 b{display:block}.admin-item-v2 small{color:var(--muted)}.danger{background:#9a2819!important}.admin-item-actions{display:flex;gap:7px;flex-wrap:wrap}.admin-item-actions button{border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:9px;padding:7px 10px;cursor:pointer;font-weight:800}.admin-form-actions{display:flex;gap:8px;flex-wrap:wrap}.muhurat-admin-date-row{display:block}.muhurat-field-label{display:block;margin-top:12px;font-weight:800;color:var(--ink)}.muhurat-field-label input,.muhurat-field-label select{width:100%;margin-top:6px;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink);box-sizing:border-box}.muhurat-admin-date-row label{font-weight:800;color:var(--ink)}.muhurat-admin-date-row input{width:100%;margin-top:5px;padding:11px;border:1px solid var(--line);border-radius:10px;font:inherit;background:var(--paper);color:var(--ink)}.admin-item-meta{display:block;margin-top:3px;color:var(--accent);font-size:12px;font-weight:800}.edit-admin-btn{background:var(--soft)!important;color:var(--accent)!important}body.dark .admin-security-note{background:#2d231b;color:var(--muted)}
+
+.site-editor-panel{display:grid;gap:10px;padding:15px;border:1px solid var(--line);border-radius:15px;background:var(--soft);margin-top:8px}.site-editor-panel h4{margin:0 0 4px;color:var(--accent);font-size:16px}.site-editor-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.site-editor-panel label{font-weight:800;color:var(--ink)}.site-editor-panel input,.site-editor-panel select,.site-editor-panel textarea{width:100%;box-sizing:border-box;margin-top:5px;padding:10px;border:1px solid var(--line);border-radius:10px;background:var(--paper);color:var(--ink);font:inherit}.site-editor-panel input[type=color]{height:45px;padding:4px}.site-quick-editor-list{display:grid;gap:9px}.site-quick-row{display:grid;grid-template-columns:44px 1fr auto;gap:9px;align-items:center;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}.site-quick-row .site-quick-icon{font-size:24px;text-align:center}.site-quick-fields{display:grid;grid-template-columns:1fr 1fr;gap:7px}.site-quick-fields input{margin:0}.site-quick-actions{display:flex;gap:6px;flex-wrap:wrap}.site-quick-actions button{border:1px solid var(--line);background:var(--soft);color:var(--ink);border-radius:9px;padding:7px 9px;cursor:pointer;font-weight:800}.site-quick-actions .danger{background:#9a2819!important;color:#fff!important}
+@media(max-width:600px){.admin-head-row{flex-direction:column}.admin-dashboard-box{padding:14px}.admin-item-v2{align-items:flex-start;flex-direction:column}.admin-item-actions{width:100%}}
+</style>
+<script>
+const ADMIN_AUTH_KEY='purohitSevaAdminAuthV1', ADMIN_SESSION_KEY='purohitSevaAdminSessionV1';
+function openAdminLogin(){document.getElementById('adminLoginPopup').classList.add('show');document.getElementById('adminLoginPopup').setAttribute('aria-hidden','false');document.body.classList.add('booking-popup-open');}
+function closeAdminLogin(){const p=document.getElementById('adminLoginPopup');p.classList.remove('show');p.setAttribute('aria-hidden','true');document.body.classList.remove('booking-popup-open')}
+async function adminLogin(e){
+  e.preventDefault();
+  const email=document.getElementById('adminUsername').value.trim();
+  const pw=document.getElementById('adminPassword').value;
+  if(!window.firebaseConsoleReady){return alert('⚠️ आधी Firebase Config भरा.');}
+  try{
+    const cred=await window.firebaseAdminLogin(email,pw);
+    const uid=cred.user.uid;
+    if(uid!=="gq3LGY0kBLffFlbLMwfQfA3ENfh2"){
+      await window.firebaseAdminLogout();
+      return alert('❌ हा Firebase account Admin म्हणून अधिकृत नाही.');
+    }
+    localStorage.setItem(ADMIN_SESSION_KEY,'1');
+    closeAdminLogin();
+    openAdminDashboard();
+  }catch(err){
+    alert('❌ Firebase Login अयशस्वी: '+(err?.message||'तपशील उपलब्ध नाही.'));
+  }
+}
+function openAdminDashboard(){
+  if(!window.firebaseAdminUser || window.firebaseAdminUser.uid!=="gq3LGY0kBLffFlbLMwfQfA3ENfh2")
+    return openAdminLogin();
+  renderAdminV2();
+  const p=document.getElementById('adminDashboardPopup');
+  p.classList.add('show');p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+}
+function closeAdminDashboard(){const p=document.getElementById('adminDashboardPopup');p.classList.remove('show');p.setAttribute('aria-hidden','true');document.body.classList.remove('booking-popup-open')}
+async function adminLogout(){try{await window.firebaseAdminLogout();}catch(e){}localStorage.removeItem(ADMIN_SESSION_KEY);closeAdminDashboard()}
+function switchAdminSection(id,btn){document.querySelectorAll('.admin-section-v2').forEach(x=>x.style.display='none');const e=document.getElementById(id);if(e)e.style.display='grid';document.querySelectorAll('.tab-v2').forEach(x=>x.classList.remove('active'));btn.classList.add('active')}
+let adminEditing={type:null,id:null};
+function setAdminEditMode(type,on){
+  const prefix=type==='aarti'?'Aarti':type==='muhurat'?'Muhurat':type==='stotra'?'Stotra':'Shanka';
+  const saveBtn=document.getElementById('admin'+prefix+'SaveBtn');
+  const cancelBtn=document.getElementById('admin'+prefix+'CancelBtn');
+  if(saveBtn)saveBtn.textContent=on?'✏️ Update / Publish':'💾 Save / Publish';
+  if(cancelBtn)cancelBtn.style.display=on?'inline-block':'none';
+}
+function cancelAdminEdit(type){
+  if(type==='aarti'){document.getElementById('adminAartiTitle').value='';document.getElementById('adminAartiText').value='';}
+  if(type==='muhurat'){document.getElementById('adminMuhuratCategory').value='';buildMuhuratMonthInputs({});closeMuhuratAdminForm();}
+  if(type==='stotra'){document.getElementById('adminStotraTitle').value='';document.getElementById('adminStotraText').value='';closeStotraAdminPopup();}
+  if(type==='shanka'){document.getElementById('adminShankaTitle').value='';document.getElementById('adminShankaText').value='';closeShankaAdminPopup();}
+  adminEditing={type:null,id:null};setAdminEditMode(type,false);
+}
+
+function renderYoutubeAdmin(){
+  const box=document.getElementById('adminYoutubeList');
+  if(!box)return;
+  const arr=Array.isArray(data.youtube)?data.youtube:[];
+  box.innerHTML=arr.map((x,i)=>'<div class="admin-item-v2"><div><b>'+esc(x.title||'नाव नसलेले चॅनेल')+'</b><small>'+esc(x.url||'')+'</small></div><div class="admin-item-actions"><button type="button" class="edit-admin-btn" onclick="editYoutube('+i+')">✏️ Edit</button><button type="button" class="admin-delete-btn" onclick="deleteYoutube('+i+')">🗑️ Delete</button></div></div>').join('') || '<div class="hint">अजून YouTube चॅनेल नाही.</div>';
+}
+let youtubeEditingId=null;
+function editYoutube(i){
+  const x=(data.youtube||[])[i]; if(!x)return;
+  youtubeEditingId=x.id||null;
+  document.getElementById('adminYoutubeTitle').value=x.title||'';
+  document.getElementById('adminYoutubeUrl').value=x.url||'';
+  document.getElementById('adminYoutubeSaveBtn').textContent='✏️ Update / Publish';
+  document.getElementById('adminYoutubeCancelBtn').style.display='inline-block';
+}
+function cancelYoutubeEdit(){
+  youtubeEditingId=null;
+  const t=document.getElementById('adminYoutubeTitle'),u=document.getElementById('adminYoutubeUrl');
+  if(t)t.value=''; if(u)u.value='';
+  const b=document.getElementById('adminYoutubeSaveBtn'); if(b)b.textContent='💾 Save / Publish';
+  const c=document.getElementById('adminYoutubeCancelBtn'); if(c)c.style.display='none';
+}
+async function adminAddYoutube(){
+  const title=document.getElementById('adminYoutubeTitle').value.trim();
+  const url=normalizeYoutubeUrl(document.getElementById('adminYoutubeUrl').value);
+  if(!title)return alert('चॅनेलचे नाव भरा.');
+  if(!url)return alert('योग्य YouTube लिंक भरा.');
+  const id=youtubeEditingId||crypto.randomUUID();
+  try{
+    if(!window.firebaseConsoleReady)throw new Error('Firebase Config भरलेले नाही.');
+    await window.firebasePublish('youtube',id,{title,url});
+    const item={id,title,url,published:true};
+    data.youtube=[item,...(data.youtube||[]).filter(v=>v.id!==id)];
+    try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+    renderYoutubeAdmin(); renderYoutubePublic(); cancelYoutubeEdit();
+    alert('✅ YouTube चॅनेल प्रकाशित झाले.');
+  }catch(e){
+    alert('❌ YouTube चॅनेल सेव्ह झाले नाही: '+e.message);
+  }
+}
+async function deleteYoutube(i){
+  if(!confirm('हे YouTube चॅनेल कायमचे Delete करायचे आहे का?'))return;
+  const arr=Array.isArray(data.youtube)?data.youtube:[];
+  const item=arr[i]; if(!item)return;
+  try{
+    if(window.firebaseConsoleReady && item.id && typeof window.firebaseRemove==='function')await window.firebaseRemove('youtube',item.id);
+    arr.splice(i,1); data.youtube=arr;
+    try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+    renderYoutubeAdmin(); renderYoutubePublic();
+    alert('✅ YouTube चॅनेल Delete झाले.');
+  }catch(e){alert('❌ Delete करताना त्रुटी आली: '+e.message);}
+}
+
+async function adminAddAarti(){
+  const t=document.getElementById('adminAartiTitle').value.trim();
+  const x=document.getElementById('adminAartiText').value.trim();
+  if(!t||!x)return alert('आरतीचे नाव आणि संपूर्ण मजकूर भरा.');
+  const id=adminEditing.type==='aarti'&&adminEditing.id?adminEditing.id:crypto.randomUUID();
+  const item={id,title:t,text:x};
+  try{
+    if(!window.firebaseConsoleReady) throw new Error('Firebase Config भरलेले नाही.');
+    await window.firebasePublish('aarti',id,{title:t,text:x});
+    data.aarti=mergePublicItems([],[item,...(data.aarti||[]).filter(v=>v.id!==id)]);
+    await save(); cancelAdminEdit('aarti');
+    render();renderAdminV2();
+    alert('✅ आरती सेव्ह/अपडेट झाली.');
+  }catch(e){alert('❌ आरती सेव्ह झाली नाही: '+e.message);}
+}
+
+const MUHURAT_MONTHS_ADMIN=[
+  'जानेवारी 2026','फेब्रुवारी 2026','मार्च 2026','एप्रिल 2026','मे 2026','जून 2026',
+  'जुलै 2026','ऑगस्ट 2026','सप्टेंबर 2026','ऑक्टोबर 2026','नोव्हेंबर 2026','डिसेंबर 2026'
+];
+function muhuratMonthDocId(title,month){
+  return 'muhurat-'+encodeURIComponent(title+'-'+month).replace(/%/g,'_').replace(/[^a-zA-Z0-9_\-]/g,'_').slice(0,180);
+}
+function buildMuhuratMonthInputs(values={}){
+  const box=document.getElementById('adminMuhuratMonthsGrid'); if(!box)return;
+  box.innerHTML=MUHURAT_MONTHS_ADMIN.map((month,i)=>`<label class="admin-muhurat-month-card"><b>${i+1}. ${month}</b><input class="admin-muhurat-date-input" data-month="${esc(month)}" value="${esc(values[month]||'')}" placeholder="शुभ दिनांक उदा. 5, 12, 18" autocomplete="off"></label>`).join('');
+}
+function getMuhuratMonthValues(){
+  const out={};
+  document.querySelectorAll('#adminMuhuratMonthsGrid .admin-muhurat-date-input').forEach(el=>{out[el.dataset.month]=(el.value||'').trim();});
+  return out;
+}
+function openMuhuratAdminForm(categoryToEdit=''){
+  const p=document.getElementById('adminMuhuratFormPopup'); if(!p)return;
+  const cat=document.getElementById('adminMuhuratCategory');
+  if(!adminEditing || adminEditing.type!=='muhurat'){
+    adminEditing={type:null,id:null};
+    if(cat)cat.value=categoryToEdit||'';
+    buildMuhuratMonthInputs({});
+    setAdminEditMode('muhurat',false);
+  }
+  p.classList.add('show'); p.setAttribute('aria-hidden','false'); document.body.classList.add('booking-popup-open');
+  setTimeout(()=>cat?.focus(),50);
+}
+function closeMuhuratAdminForm(){const p=document.getElementById('adminMuhuratFormPopup');if(!p)return;p.classList.remove('show');p.setAttribute('aria-hidden','true');document.body.classList.remove('booking-popup-open');}
+
+async function adminAddMuhurat(){
+  const t=document.getElementById('adminMuhuratCategory')?.value.trim()||'';
+  const values=getMuhuratMonthValues();
+  if(!t)return alert('मुहूर्ताचा प्रकार निवडा.');
+  const filled=MUHURAT_MONTHS_ADMIN.filter(m=>values[m]);
+  if(!filled.length)return alert('किमान एका महिन्याचा शुभ दिनांक भरा.');
+  try{
+    if(!window.firebaseConsoleReady) throw new Error('Firebase Config भरलेले नाही.');
+    const oldTitle=adminEditing.type==='muhurat' ? normalizeMuhuratTitle(adminEditing.muhuratTitle||t) : normalizeMuhuratTitle(t);
+    const old=(data.muhurats||[]).filter(x=>normalizeMuhuratTitle(x.title)===oldTitle);
+    // Edit करताना प्रकाराचे नाव बदलले तरी जुने सर्व महिन्यांचे records हटवून नवीन नावाने माहिती सेव्ह करा.
+    for(const x of old){ if(x.id && typeof window.firebaseRemove==='function') { try{await window.firebaseRemove('shubhMuhurt',x.id);}catch(e){} } }
+    const newItems=[];
+    for(const month of filled){
+      const id=muhuratMonthDocId(t,month);
+      const item={id,title:t,month,date:values[month]};
+      await window.firebasePublish('shubhMuhurt',id,{title:t,month,date:values[month],deleted:false});
+      newItems.push(item);
+    }
+    data.muhurats=[...newItems,...(data.muhurats||[]).filter(x=>normalizeMuhuratTitle(x.title)!==oldTitle)];
+    await save(); cancelAdminEdit('muhurat'); closeMuhuratAdminForm(); renderMuhuratOptions();renderAdminV2();
+    alert('✅ '+t+' चे '+filled.length+' महिन्यांचे शुभ दिनांक सेव्ह झाले.');
+  }catch(e){alert('❌ शुभ मुहूर्त सेव्ह झाला नाही: '+e.message);}
+}
+
+function editMuhuratCategory(title){
+  const cleanTitle=normalizeMuhuratTitle(title);
+  const items=(data.muhurats||[]).filter(x=>normalizeMuhuratTitle(x.title)===cleanTitle);
+  if(!items.length)return alert('❌ या मुहूर्ताची माहिती सापडली नाही.');
+  adminEditing={type:'muhurat',id:items[0]?.id||null,muhuratTitle:items[0]?.title||cleanTitle};
+  const cat=document.getElementById('adminMuhuratCategory');
+  if(cat)cat.value=items[0]?.title||cleanTitle;
+  const values={};
+  items.forEach(x=>{if(x.month)values[x.month]=x.date||'';});
+  buildMuhuratMonthInputs(values);
+  setAdminEditMode('muhurat',true);
+  const p=document.getElementById('adminMuhuratFormPopup');
+  if(p){p.classList.add('show');p.setAttribute('aria-hidden','false');document.body.classList.add('booking-popup-open');}
+  setTimeout(()=>cat?.focus(),50);
+}
+
+async function deleteMuhuratCategory(title){
+  const cleanTitle=normalizeMuhuratTitle(title);
+  const items=(data.muhurats||[]).filter(x=>normalizeMuhuratTitle(x.title)===cleanTitle);
+  if(!items.length)return alert('❌ या मुहूर्ताची माहिती सापडली नाही.');
+  if(!confirm('“'+cleanTitle+'” चे सर्व महिन्यांचे शुभ दिनांक कायमचे Delete करायचे आहेत का?'))return;
+  try{
+    if(!window.firebaseConsoleReady)throw new Error('Firebase Config भरलेले नाही.');
+    if(!window.firebaseAdminUser || window.firebaseAdminUser.uid!==window.ADMIN_UID)throw new Error('Admin authorization required.');
+    const ids=items.map(x=>x.id).filter(Boolean);
+    if(!ids.length)throw new Error('Firebase document ID मिळाला नाही.');
+    // सर्व records आधी Firebase मधून यशस्वीपणे delete करा; मध्येच error आल्यास local data हटवू नका.
+    await Promise.all(ids.map(id=>window.firebaseRemove('shubhMuhurt',id)));
+    data.muhurats=(data.muhurats||[]).filter(x=>normalizeMuhuratTitle(x.title)!==cleanTitle);
+    try{localStorage.setItem(KEY,JSON.stringify(data));}catch(e){}
+    renderMuhuratOptions();renderAdminV2();render();
+    alert('✅ '+cleanTitle+' चे सर्व महिन्यांचे शुभ दिनांक Delete झाले.');
+  }catch(e){
+    console.error('Muhurat delete failed:',e);
+    alert('❌ Delete झाले नाही: '+(e?.message||'Firebase error'));
+    renderMuhuratOptions();renderAdminV2();
+  }
+}
+function openStotraAdminPopup(){
+  const p=document.getElementById('stotraAdminPopup');
+  if(!p)return;
+  p.classList.add('show'); p.setAttribute('aria-hidden','false');
+  document.body.classList.add('booking-popup-open');
+  setTimeout(()=>document.getElementById('adminStotraTitle')?.focus(),50);
+}
+function closeStotraAdminPopup(){
+  const p=document.getElementById('stotraAdminPopup');
+  if(!p)return;
+  p.classList.remove('show'); p.setAttribute('aria-hidden','true');
+  document.body.classList.remove('booking-popup-open');
+}
+async function adminAddStotra(){
+  const t=document.getElementById('adminStotraTitle').value.trim();
+  const x=document.getElementById('adminStotraText').value.trim();
+  if(!t||!x)return alert('स्तोत्राचे नाव आणि संपूर्ण मजकूर भरा.');
+  const id=adminEditing.type==='stotra'&&adminEditing.id?adminEditing.id:crypto.randomUUID();
+  const item={id,title:t,text:x};
+  try{
+    if(!window.firebaseConsoleReady) throw new Error('Firebase Config भरलेले नाही.');
+    await window.firebasePublish('stotra',id,{title:t,text:x});
+    data.stotra=mergePublicItems([],[item,...(data.stotra||[]).filter(v=>v.id!==id)]);
+    await save(); cancelAdminEdit('stotra'); closeStotraAdminPopup();
+    render();renderAdminV2();
+    alert('✅ स्तोत्र सेव्ह/अपडेट झाले.');
+  }catch(e){alert('❌ स्तोत्र सेव्ह झाले नाही: '+e.message);}
+}
+
+function openShankaAdminPopup(){
+  const p=document.getElementById('shankaAdminPopup'); if(!p)return;
+  p.classList.add('show'); p.setAttribute('aria-hidden','false'); document.body.classList.add('booking-popup-open');
+  setTimeout(()=>document.getElementById('adminShankaTitle')?.focus(),50);
+}
+function closeShankaAdminPopup(){const p=document.getElementById('shankaAdminPopup');if(!p)return;p.classList.remove('show');p.setAttribute('aria-hidden','true');document.body.classList.remove('booking-popup-open');}
+async function adminAddShanka(){
+  const t=document.getElementById('adminShankaTitle').value.trim();
+  const x=document.getElementById('adminShankaText').value.trim();
+  if(!t||!x)return alert('शंकेचा प्रश्न आणि उत्तर दोन्ही भरा.');
+  const id=adminEditing.type==='shanka'&&adminEditing.id?adminEditing.id:(crypto.randomUUID?crypto.randomUUID():('shanka-'+Date.now()));
+  const item={id,title:t,text:x};
+  try{
+    if(!window.firebaseConsoleReady) throw new Error('Firebase Config भरलेले नाही.');
+    await window.firebasePublish('shanka',id,{title:t,text:x});
+    data.shanka=mergePublicItems([],[item,...(data.shanka||[]).filter(v=>v.id!==id)]);
+    await save();
+    cancelAdminEdit('shanka');
+    closeShankaAdminPopup();
+    render();
+    renderAdminV2();
+    renderShanka();
+    alert('✅ शंका समाधान सेव्ह/अपडेट झाले.');
+  }catch(e){
+    alert('❌ शंका समाधान सेव्ह झाले नाही: '+e.message);
+  }
+}
+
+function startAdminEdit(type,index){
+  const arr=type==='aarti'?data.aarti:type==='muhurat'?data.muhurats:type==='stotra'?data.stotra:data.shanka;
+  const item=arr?.[index]; if(!item)return alert('❌ माहिती सापडली नाही.');
+  adminEditing={type,id:item.id};
+  if(type==='aarti'){document.getElementById('adminAartiTitle').value=item.title||'';document.getElementById('adminAartiText').value=item.text||'';setAdminEditMode('aarti',true);}
+  if(type==='muhurat'){editMuhuratCategory(item.title||'');}
+  if(type==='stotra'){document.getElementById('adminStotraTitle').value=item.title||'';document.getElementById('adminStotraText').value=item.text||'';setAdminEditMode('stotra',true);openStotraAdminPopup();}
+  if(type==='shanka'){document.getElementById('adminShankaTitle').value=item.title||'';document.getElementById('adminShankaText').value=item.text||'';setAdminEditMode('shanka',true);openShankaAdminPopup();}
+  window.scrollTo({top:document.querySelector('.admin-dashboard-box')?.offsetTop||0,behavior:'smooth'});
+}
+
+async function adminDelete(type,i){
+  if(!confirm('ही माहिती कायमची हटवायची आहे का?')) return;
+
+  const map = {
+    aarti: {arr:'aarti', collection:'aarti'},
+    muhurat: {arr:'muhurats', collection:'shubhMuhurt'},
+    stotra: {arr:'stotra', collection:'stotra'},
+    shanka: {arr:'shanka', collection:'shanka'}
+  };
+  const cfg = map[type];
+  if(!cfg) return alert('❌ Delete प्रकार सापडला नाही.');
+
+  const arr = data[cfg.arr] || [];
+  const item = arr[i];
+  if(!item) return alert('❌ ही माहिती सापडली नाही. Dashboard पुन्हा उघडा.');
+
+  try{
+    // First remove it from the current app data so the dashboard updates immediately.
+    arr.splice(i,1);
+    data[cfg.arr] = arr;
+
+    // Keep the local backup in sync.
+    try{ localStorage.setItem(KEY, JSON.stringify(data)); }catch(e){}
+
+    // If this record has a Firebase document id, delete that exact document too.
+    if(window.firebaseConsoleReady && item.id && typeof window.firebaseRemove==='function'){
+      await window.firebaseRemove(cfg.collection, item.id);
+    }
+
+    // Keep the existing cloud/local persistence path in sync.
+    await save();
+
+    render();
+    renderMuhuratOptions();
+    renderAdminV2();
+    alert('✅ माहिती यशस्वीपणे Delete झाली.');
+  }catch(err){
+    console.error('Admin delete failed:', err);
+    alert('❌ Delete करताना त्रुटी आली. Console मध्ये error तपासा.');
+    // Re-render current state so the UI is not left stale.
+    renderAdminV2();
+  }
+}
+function renderAdminV2(){
+  const make=(arr,type)=>{
+    arr=Array.isArray(arr)?arr:[];
+    if(type==='muhurat'){
+      const groups=[]; const seen=new Set();
+      arr.forEach(x=>{if(x.title&&!seen.has(x.title)){seen.add(x.title);groups.push(x.title);}});
+      return groups.map(title=>{
+        const items=arr.filter(x=>normalizeMuhuratTitle(x.title)===normalizeMuhuratTitle(title));
+        const monthText=MUHURAT_MONTHS_ADMIN.filter(m=>items.some(x=>x.month===m&&x.date)).map(m=>{const x=items.find(v=>v.month===m);return `<span>${esc(m.replace(' 2026',''))}: <b>${esc(x.date)}</b></span>`;}).join(' ');
+        const key=encodeURIComponent(title);
+        return `<div class="admin-item-v2"><div><b>${esc(title)}</b><small class="admin-item-meta">${monthText||'अजून शुभ दिनांक नाही'}</small></div><div class="admin-item-actions"><button type="button" class="edit-admin-btn muhurat-edit-btn" data-muhurat-title="${key}">✏️ Edit</button><button type="button" class="admin-delete-btn muhurat-delete-btn" data-muhurat-title="${key}">🗑️ Delete</button></div></div>`;
+      }).join('');
+    }
+    return arr.map((x,i)=>{
+      const title=esc(x.title||'नाव नसलेली माहिती');
+      const text=esc((x.text||'').slice(0,90))+((x.text||'').length>90?'…':'');
+      return `<div class="admin-item-v2"><div><b>${title}</b>${text?`<small>${text}</small>`:''}</div><div class="admin-item-actions"><button type="button" class="edit-admin-btn" data-edit-type="${type}" data-edit-index="${i}">✏️ Edit</button><button type="button" class="admin-delete-btn" data-delete-type="${type}" data-delete-index="${i}">🗑️ Delete</button></div></div>`;
+    }).join('');
+  };
+  const a=document.getElementById('adminAartiList'),m=document.getElementById('adminMuhuratList'),st=document.getElementById('adminStotraList'),q=document.getElementById('adminShankaList');
+  if(a)a.innerHTML=make(data.aarti||[],'aarti')||'<div class="hint">अजून आरती नाही.</div>';
+  if(m)m.innerHTML=make(data.muhurats||[],'muhurat')||'<div class="hint">अजून शुभ मुहूर्त नाही.</div>';
+  if(st)st.innerHTML=make(data.stotra||[],'stotra')||'<div class="hint">अजून नवीन स्तोत्र नाही.</div>';
+  if(q)q.innerHTML=make(data.shanka||[],'shanka')||'<div class="hint">अजून शंका समाधान नाही.</div>';
+  renderYoutubeAdmin();
+}
+
+
+const MUHURAT_CATEGORIES = [
+  {title:'साखरपुडा मुहूर्त', icon:'💍'},
+  {title:'विवाह मुहूर्त', icon:'💒'},
+  {title:'भूमिपूजन मुहूर्त', icon:'🏡'},
+  {title:'गृहप्रवेश मुहूर्त', icon:'🚪'},
+  {title:'वास्तुशांती मुहूर्त', icon:'🪔'},
+  {title:'डोहाळे जेवण मुहूर्त', icon:'🌸'},
+  {title:'बारसे / नामकरण मुहूर्त', icon:'👶'},
+  {title:'जावळ मुहूर्त', icon:'✂️'},
+  {title:'वाहन खरेदी मुहूर्त', icon:'🚗'},
+  {title:'उपनयन / मुंज मुहूर्त', icon:'🙏'},
+  {title:'प्राणप्रतिष्ठा मुहूर्त', icon:'🛕'}
+];
+
+function normalizeMuhuratTitle(v){
+  return String(v||'').replace(/[\s]+/g,' ').trim();
+}
+
+function getAllMuhuratCategories(){
+  const list=Array.isArray(data.muhurats)?data.muhurats:[];
+  const out=[...MUHURAT_CATEGORIES];
+  const seen=new Set(out.map(x=>normalizeMuhuratTitle(x.title)));
+  // Admin ने नवीन प्रकारचे नाव टाकल्यास तो प्रकारही आपोआप popup मध्ये जोडा.
+  list.forEach(x=>{
+    const title=normalizeMuhuratTitle(x.title);
+    if(title && !seen.has(title)){
+      seen.add(title);
+      out.push({title,icon:'🕉️',custom:true});
+    }
+  });
+  return out;
+}
+
+function renderMuhuratOptions(){
+  const grid=document.querySelector('#muhuratPopup .muhurat-grid');
+  if(!grid)return;
+  // Default 11 प्रकार कायम दिसतील; Admin ने नवीन प्रकार जोडल्यास तो खाली आपोआप दिसेल.
+  const list=Array.isArray(data.muhurats)?data.muhurats:[];
+  grid.innerHTML=getAllMuhuratCategories().map(cat=>{
+    const matches=list.filter(x=>normalizeMuhuratTitle(x.title)===normalizeMuhuratTitle(cat.title));
+    const count=matches.length;
+    return `<button type="button" class="muhurat-option" onclick="selectMuhuratByTitle('${cat.title.replace(/'/g,"\'")}')"><span class="muhurat-icon">${cat.icon}</span><span class="muhurat-name-wrap"><b class="muhurat-name">${esc(cat.title)}</b>${cat.custom?'<small class="muhurat-custom-badge">नवीन प्रकार</small>':''}${count?`<small class="muhurat-count">${count} मुहूर्त उपलब्ध</small>`:'<small class="muhurat-sub">तारीख पाहण्यासाठी क्लिक करा</small>'}</span></button>`;
+  }).join('');
+}
+
+function selectMuhuratByTitle(title){
+  const category=MUHURAT_CATEGORIES.find(v=>v.title===title);
+  const items=(Array.isArray(data.muhurats)?data.muhurats:[]).filter(v=>normalizeMuhuratTitle(v.title)===normalizeMuhuratTitle(title));
+  showMuhuratDetails({title:category?.title||title,icon:category?.icon||'🕉️',items});
+}
+
+function selectMuhuratById(id){
+  const x=(data.muhurats||[]).find(v=>String(v.id)===String(id));
+  if(x) showMuhuratDetails({title:x.title,icon:'🕉️',items:[x]});
+}
+async function testCloudConnection(){
+  if(!cloudReady()){ alert('⚠️ CLOUD_CONFIG मध्ये Supabase URL आणि anon key भरलेले नाहीत.'); return; }
+  const x=await cloudLoad();
+  alert(x?'✅ Cloud database connection यशस्वी.':'❌ Connection/Table तपासा.');
+}
+function changeAdminCredentials(){const u=document.getElementById('newAdminUsername').value.trim(),pw=document.getElementById('newAdminPassword').value;if(!u||pw.length<6)return alert('Username भरा आणि Password किमान 6 अक्षरांचा ठेवा.');localStorage.setItem(ADMIN_AUTH_KEY,JSON.stringify({username:u,password:pw}));document.getElementById('newAdminUsername').value='';document.getElementById('newAdminPassword').value='';alert('✅ Admin Login माहिती अपडेट झाली.');}
+const SITE_SETTINGS_KEY='purohitSevaSiteSettingsV1';
+const SITE_QUICK_DEFAULTS={
+  panchang:{id:'panchang',icon:'',title:'आजचे पंचांग',desc:'दाते पंचांग पाहण्यासाठी येथे क्लिक करा',href:'https://share.google/fxqmwvH3DnElvPeOb',external:true},
+  aarti:{id:'aarti',icon:'📖',title:'आरती संग्रह',desc:'गणपती • शिव • देवी आणि इतर आरत्या'},
+  shanka:{id:'shanka',icon:'❓',title:'शंका समाधान',desc:'धार्मिक प्रश्न विचारा आणि उत्तर मिळवा'},
+  seva:{id:'seva',icon:'🪔',title:'पूजा सेवा',desc:'गृहप्रवेश • सत्यनारायण • विवाह'},
+  booking:{id:'booking',icon:'📲',title:'पूजा बुकिंग',desc:'फॉर्म भरण्यासाठी येथे क्लिक करा'},
+  contact:{id:'contact',icon:'📞',title:'संपर्क क्रमांक',desc:'संपर्कासाठी क्रमांक पाहा'},
+  muhurat:{id:'muhurat',icon:'🕉️',title:'शुभ मुहूर्त',desc:'विविध शुभ मुहूर्त पहा दाते पंचांग नुसार'},
+  stotra:{id:'stotra',icon:'📿',title:'स्तोत्र संग्रह',desc:'गणपती • रामरक्षा • हनुमान आणि इतर स्तोत्रे'},
+  youtube:{id:'youtube',icon:'▶️',title:'लाईव्ह दर्शन',desc:'भक्तीचे व्हिडिओ',href:'https://m.youtube.com',external:true}
+};
+const SITE_QUICK_KEYS=Object.keys(SITE_QUICK_DEFAULTS);
+function defaultSiteSettings(){return {templeBookings:Array.from({length:20},(_,i)=>({id:'temple-'+(i+1),name:'',url:'',visible:false})),customQuick:[],appearance:{accent:'#9f3f10',gold:'#d7a33a',bg:'#fff9f0',ink:'#2d1b12',font:'Noto Sans Devanagari',base:16,heading:32},hero:{badge:'🕉️ पुरोहित सेवा',title:'धार्मिक सेवा, ज्ञान आणि भक्ती — एका सुंदर ठिकाणी.',sub:'आजचे पंचांग पाहा आणि पूजा सेवा निवडा.'},contact:{name:'📞 सुरेश कुलकर्णी (काका)',sub:'संपर्क क्रमांक',numbers:['८६०५१२११६५','८८८८५८५४७४','९८६०१५७०४१'],address:'📍 जाधव मळा, शिरूर'},booking:{title:'📲 पूजा बुकिंग',sub:'खालील माहिती भरून WhatsApp वर बुकिंग पाठवा.',services:['गृहप्रवेश पूजा','वास्तुशांती','सत्यनारायण पूजा','गणपती पूजा','नवग्रह शांती','रुद्राभिषेक','नामकरण','मुंज / उपनयन','विवाह पूजा','डोहाळे जेवण','श्राद्ध / धार्मिक विधी','इतर पूजा']},quick:Object.fromEntries(SITE_QUICK_KEYS.map(k=>[k,{...SITE_QUICK_DEFAULTS[k],visible:true}]))};}
+function loadSiteSettings(){try{const x=JSON.parse(localStorage.getItem(SITE_SETTINGS_KEY)||'null');const d=defaultSiteSettings();if(!x)return d;return {...d,...x,templeBookings:Array.isArray(x.templeBookings)?x.templeBookings.slice(0,20):d.templeBookings,customQuick:Array.isArray(x.customQuick)?x.customQuick:[],appearance:{...d.appearance,...(x.appearance||{})},hero:{...d.hero,...(x.hero||{})},contact:{...d.contact,...(x.contact||{})},booking:{...d.booking,...(x.booking||{})},quick:{...d.quick,...(x.quick||{})}}}catch(e){return defaultSiteSettings()}}
+let siteSettings=loadSiteSettings();
+function saveSiteSettingsLocal(){try{localStorage.setItem(SITE_SETTINGS_KEY,JSON.stringify(siteSettings));}catch(e){} publishSiteSettingsToCloud();}
+async function publishSiteSettingsToCloud(){try{if(window.firebaseConsoleReady&&window.firebaseAdminUser&&window.firebaseAdminUser.uid===window.ADMIN_UID&&typeof window.firebasePublish==='function'){await window.firebasePublish('settings','site',{siteSettings});}}catch(e){console.warn('Site settings cloud save skipped/failed',e);}}
+async function loadSiteSettingsFromCloudPayload(payload){try{if(payload&&payload.siteSettings){siteSettings={...defaultSiteSettings(),...payload.siteSettings,templeBookings:Array.isArray(payload.siteSettings.templeBookings)?payload.siteSettings.templeBookings.slice(0,20):defaultSiteSettings().templeBookings,customQuick:Array.isArray(payload.siteSettings.customQuick)?payload.siteSettings.customQuick:[],appearance:{...defaultSiteSettings().appearance,...(payload.siteSettings.appearance||{})},hero:{...defaultSiteSettings().hero,...(payload.siteSettings.hero||{})},contact:{...defaultSiteSettings().contact,...(payload.siteSettings.contact||{})},booking:{...defaultSiteSettings().booking,...(payload.siteSettings.booking||{})},quick:{...defaultSiteSettings().quick,...(payload.siteSettings.quick||{})}};saveSiteSettingsLocal();applyAllSiteSettings();}}catch(e){console.warn('Site settings cloud load failed',e);}}
+window.addEventListener('firebase-site-settings-update',e=>loadSiteSettingsFromCloudPayload(e.detail||{}));
+function applySiteAppearance(){const a=siteSettings.appearance;document.documentElement.style.setProperty('--accent',a.accent);document.documentElement.style.setProperty('--gold',a.gold);document.documentElement.style.setProperty('--bg',a.bg);document.documentElement.style.setProperty('--ink',a.ink);document.body.style.fontFamily=`"${a.font}",sans-serif`;document.body.style.fontSize=(a.base||16)+'px';document.querySelectorAll('.title').forEach(e=>e.style.fontSize=(a.heading||32)+'px');}
+function applySiteHero(){const h=siteSettings.hero;const b=document.getElementById('siteHeroBadge'),t=document.getElementById('siteHeroTitle'),p=document.getElementById('siteHeroSub');if(b)b.textContent=h.badge;if(t){const parts=h.title.split(' — ');t.innerHTML=parts.length>1?esc(parts[0])+'<br><span>'+esc(parts.slice(1).join(' — '))+'</span>':esc(h.title);}if(p)p.textContent=h.sub;}
+function applySiteContact(){const c=siteSettings.contact;const n=document.getElementById('siteContactName'),s=document.getElementById('siteContactSub'),a=document.getElementById('siteContactAddress');if(n)n.textContent=c.name;if(s)s.textContent=c.sub;if(a)a.innerHTML='📍 <b>पत्ता:</b> '+esc(c.address.replace(/^📍\s*<b>पत्ता:<\/b>\s*/,'').replace(/^📍\s*/,''));c.numbers.forEach((v,i)=>{const e=document.getElementById('contact'+(i+1));if(e){e.textContent=v;e.href='tel:'+String(v).replace(/[०-९]/g,d=>({'०':'0','१':'1','२':'2','३':'3','४':'4','५':'5','६':'6','७':'7','८':'8','९':'9'}[d]||d)).replace(/\D/g,'');}});}
+function applySiteBooking(){const b=siteSettings.booking;const t=document.getElementById('siteBookingTitle'),s=document.getElementById('siteBookingSub'),sel=document.getElementById('bookingPuja');if(t)t.textContent=b.title;if(s)s.textContent=b.sub;if(sel)sel.innerHTML='<option value="">पूजा निवडा</option>'+b.services.map(x=>`<option>${esc(x)}</option>`).join('');}
+function applyQuickCard(k){const q=siteSettings.quick[k],e=document.getElementById('quick-'+k);if(!e)return;e.style.display=q.visible===false?'none':'';const b=e.querySelector('b'),sm=e.querySelector('small'),ic=e.querySelector(':scope > span:not(.removed-calendar-icon)');if(b)b.textContent=q.title;if(sm)sm.textContent=q.desc;if(ic&&q.icon)ic.textContent=q.icon;}
+function applyCustomQuickOptions(){
+  const grid=document.querySelector('.quick-grid'); if(!grid)return;
+  grid.querySelectorAll('[data-custom-quick=\"1\"]').forEach(e=>e.remove());
+  (siteSettings.customQuick||[]).filter(q=>q.visible!==false).forEach(q=>{
+    const a=document.createElement('a'); a.className='quick-card'; a.dataset.customQuick='1';
+    a.href=q.target||'#'; a.innerHTML=`<span>${esc(q.icon||'✨')}</span><b>${esc(q.title||'नवीन पर्याय')}</b><small>${esc(q.desc||'')}</small>`;
+    if(q.external){a.target='_blank';a.rel='noopener noreferrer';}
+    grid.appendChild(a);
+  });
+}
+function updateNewQuickActionHint(){
+  const type=document.getElementById('newQuickActionType')?.value; const hint=document.getElementById('newQuickActionHint'); const input=document.getElementById('newQuickTarget');
+  if(type==='url'){if(hint)hint.textContent='उदा. https://example.com किंवा तुमच्या website ची दुसरी URL.'; if(input)input.placeholder='https://example.com';}
+  else{if(hint)hint.textContent='उदा. #shastra, #booking, #seva — वेबसाइटमधील त्या section कडे नेईल.'; if(input)input.placeholder='#shastra';}
+}
+function clearCustomQuickForm(){['newQuickTitle','newQuickDesc','newQuickTarget'].forEach(id=>{const e=document.getElementById(id);if(e)e.value='';});const i=document.getElementById('newQuickIcon');if(i)i.value='✨';const x=document.getElementById('newQuickExternal');if(x)x.checked=false;}
+function addCustomQuickOption(){
+  const title=(document.getElementById('newQuickTitle')?.value||'').trim(); const desc=(document.getElementById('newQuickDesc')?.value||'').trim(); const icon=(document.getElementById('newQuickIcon')?.value||'✨').trim();
+  const type=document.getElementById('newQuickActionType')?.value||'section'; let target=(document.getElementById('newQuickTarget')?.value||'').trim(); const external=!!document.getElementById('newQuickExternal')?.checked;
+  if(!title)return alert('❌ पर्यायाचे नाव भरा.');
+  if(!target)return alert('❌ Link / Section ID भरा.');
+  if(type==='section' && !target.startsWith('#'))target='#'+target;
+  if(type==='url' && !/^https?:\/\//i.test(target))target='https://'+target;
+  const id='custom-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7);
+  siteSettings.customQuick=Array.isArray(siteSettings.customQuick)?siteSettings.customQuick:[];
+  siteSettings.customQuick.push({id,icon,title,desc,target,external,visible:true});
+  saveSiteSettingsLocal(); applyCustomQuickOptions(); renderSiteEditor(); clearCustomQuickForm();
+  alert('✅ '+title+' Website वर Add झाला.');
+}
+function editCustomQuick(id){
+  const q=(siteSettings.customQuick||[]).find(x=>x.id===id); if(!q)return;
+  const title=prompt('पर्यायाचे नाव:',q.title); if(title===null)return;
+  const desc=prompt('छोटे वर्णन:',q.desc||''); if(desc===null)return;
+  const target=prompt('Link / Section ID:',q.target||''); if(target===null)return;
+  q.title=title.trim()||q.title; q.desc=desc.trim(); q.target=target.trim()||q.target;
+  saveSiteSettingsLocal();applyCustomQuickOptions();renderSiteEditor();
+}
+function toggleCustomQuick(id){const q=(siteSettings.customQuick||[]).find(x=>x.id===id);if(!q)return;q.visible=q.visible===false;saveSiteSettingsLocal();applyCustomQuickOptions();renderSiteEditor();}
+function deleteCustomQuick(id){const q=(siteSettings.customQuick||[]).find(x=>x.id===id);if(!q)return;if(!confirm('“'+q.title+'” कायमचे Delete करायचे आहे का?'))return;siteSettings.customQuick=(siteSettings.customQuick||[]).filter(x=>x.id!==id);saveSiteSettingsLocal();applyCustomQuickOptions();renderSiteEditor();}
+
+function normalizeTempleUrl(v){
+  v=(v||'').trim();
+  if(!v)return '';
+  if(!/^https?:\/\//i.test(v))v='https://'+v;
+  try{
+    const u=new URL(v);
+    if(u.protocol!=='http:'&&u.protocol!=='https:')return '';
+    return u.href;
+  }catch(e){return '';}
+}
+function renderTempleBookingsPublic(){
+  const el=document.getElementById('onlineBookingPopupGrid') || document.getElementById('templeBookingPublicGrid');
+  if(!el)return;
+  const list=Array.isArray(siteSettings.templeBookings)?siteSettings.templeBookings:[];
+  const visible=list.filter(x=>x && x.name && normalizeTempleUrl(x.url) && x.visible!==false);
+  if(!visible.length){
+    el.innerHTML='<div class="temple-booking-empty">अद्याप कोणतेही मंदिर उपलब्ध नाही. Admin Dashboard मधून मंदिराचे नाव व अधिकृत वेबसाइट Save करा.</div>';
+    return;
+  }
+  el.innerHTML=visible.map(x=>{
+    const url=normalizeTempleUrl(x.url);
+    return '<a class="temple-booking-card" href="'+escAttr(url)+'" target="_blank" rel="noopener noreferrer">'+
+      '<span class="temple-booking-icon">🛕</span>'+
+      '<span><b>'+esc(x.name)+'</b><small>ऑनलाईन बुकिंग / दर्शन वेबसाइट उघडा</small></span>'+
+      '<span class="temple-booking-arrow">↗</span></a>';
+  }).join('');
+}
+function renderTempleBookingsAdmin(){
+  const box=document.getElementById('templeBookingAdminList');
+  if(!box)return;
+  if(!Array.isArray(siteSettings.templeBookings))siteSettings.templeBookings=[];
+  while(siteSettings.templeBookings.length<20){
+    siteSettings.templeBookings.push({id:'temple-'+(siteSettings.templeBookings.length+1),name:'',url:'',visible:false});
+  }
+  siteSettings.templeBookings=siteSettings.templeBookings.slice(0,20);
+  box.innerHTML=siteSettings.templeBookings.map((x,i)=>{
+    const has=!!(x.name||x.url);
+    return '<div class="temple-admin-row" data-temple-index="'+i+'">'+
+      '<div class="temple-num">'+(i+1)+'</div>'+
+      '<input class="temple-name" value="'+escAttr(x.name||'')+'" placeholder="मंदिराचे नाव" readonly>'+
+      '<input class="temple-url" value="'+escAttr(x.url||'')+'" placeholder="https://official-website.com" readonly>'+
+      '<label style="display:flex;align-items:center;gap:6px;font-size:12px"><input class="temple-visible" type="checkbox" '+(x.visible!==false?'checked':'')+' style="width:auto;margin:0" disabled> Show</label>'+
+      '<div class="temple-admin-actions">'+
+      '<button class="btn alt" type="button" onclick="editTempleBooking('+i+')">✏️ Edit</button>'+
+      '<button class="btn alt" type="button" onclick="deleteTempleBooking('+i+')" '+(has?'':'disabled')+'>🗑️ Delete</button>'+
+      '</div></div>';
+  }).join('');
+}
+function editTempleBooking(i){
+  const row=document.querySelector('[data-temple-index="'+i+'"]');
+  if(!row)return;
+  row.querySelector('.temple-name').readOnly=false;
+  row.querySelector('.temple-url').readOnly=false;
+  row.querySelector('.temple-visible').disabled=false;
+  const b=row.querySelector('button[onclick^="editTempleBooking"]');
+  if(b){b.textContent='💾 Save';b.onclick=()=>saveTempleBookingRow(i);}
+  row.querySelector('.temple-name').focus();
+}
+function saveTempleBookingRow(i){
+  const row=document.querySelector('[data-temple-index="'+i+'"]');
+  if(!row)return;
+  const name=(row.querySelector('.temple-name').value||'').trim();
+  const rawUrl=(row.querySelector('.temple-url').value||'').trim();
+  const url=normalizeTempleUrl(rawUrl);
+  if(name && !url){alert('❌ योग्य वेबसाइट URL द्या. उदाहरण: https://example.com');return;}
+  const oldItem=siteSettings.templeBookings[i]||{};
+  const autoShow=(!oldItem.name&&!oldItem.url&&name&&url);
+  siteSettings.templeBookings[i]={id:'temple-'+(i+1),name,url,visible:autoShow?true:!!row.querySelector('.temple-visible').checked};
+  saveSiteSettingsLocal();
+  renderTempleBookingsAdmin();
+  renderTempleBookingsPublic();
+  if(typeof publishSiteSettingsToCloud==='function') publishSiteSettingsToCloud();
+}
+function saveTempleBookings(){
+  const rows=[...document.querySelectorAll('#templeBookingAdminList .temple-admin-row')];
+  siteSettings.templeBookings=rows.map((row,i)=>{
+    const oldItem=siteSettings.templeBookings[i]||{};
+    const name=(row.querySelector('.temple-name').value||'').trim();
+    const url=normalizeTempleUrl(row.querySelector('.temple-url').value||'');
+    return {
+      id:'temple-'+(i+1),
+      name,url,
+      visible:((!oldItem.name&&!oldItem.url&&name&&url)?true:!!row.querySelector('.temple-visible').checked)
+    };
+  });
+  const invalid=siteSettings.templeBookings.find(x=>x.name && !x.url);
+  if(invalid){alert('❌ नाव दिले आहे पण वेबसाइट URL नाही.');return;}
+  saveSiteSettingsLocal();
+  renderTempleBookingsAdmin();
+  renderTempleBookingsPublic();
+  if(typeof publishSiteSettingsToCloud==='function') publishSiteSettingsToCloud();
+  alert('✅ ऑनलाईन बुकिंग / दर्शन सेटिंग सेव्ह झाली.');
+}
+function addTempleBookingRow(){
+  const i=(siteSettings.templeBookings||[]).findIndex(x=>!x.name&&!x.url);
+  if(i<0){alert('20 मंदिरांची मर्यादा पूर्ण झाली आहे.');return;}
+  editTempleBooking(i);
+}
+function deleteTempleBooking(i){
+  const x=siteSettings.templeBookings?.[i];
+  if(!x || (!x.name&&!x.url))return;
+  if(!confirm('“'+(x.name||'हे मंदिर')+'” डिलीट करायचे आहे का?'))return;
+  siteSettings.templeBookings[i]={id:'temple-'+(i+1),name:'',url:'',visible:false};
+  saveSiteSettingsLocal();
+  renderTempleBookingsAdmin();
+  renderTempleBookingsPublic();
+  if(typeof publishSiteSettingsToCloud==='function') publishSiteSettingsToCloud();
+}
+
+function clearTempleBooking(i){
+  if(!siteSettings.templeBookings?.[i])return;
+  siteSettings.templeBookings[i]={id:'temple-'+(i+1),name:'',url:'',visible:false};
+  renderTempleBookingsAdmin(); saveSiteSettingsLocal(); renderTempleBookingsPublic();
+  renderYoutubePublic();
+}
+
+function saveTempleBookings(){
+  const rows=[...document.querySelectorAll('#templeBookingAdminList .temple-admin-row')];
+  const next=rows.map((row,i)=>({
+    id:'temple-'+(i+1),
+    name:row.querySelector('.temple-name')?.value.trim()||'',
+    url:normalizeTempleUrl(row.querySelector('.temple-url')?.value||''),
+    visible:!!row.querySelector('.temple-visible')?.checked
+  }));
+  const bad=next.find(x=>x.url==='' && x.name);
+  if(bad){alert('❌ प्रत्येक मंदिरासाठी योग्य URL भरा. URL उदा. https://example.com');return;}
+  siteSettings.templeBookings=next;
+  saveSiteSettingsLocal(); renderTempleBookingsPublic(); renderTempleBookingsAdmin();
+  alert('✅ 20 मंदिरांच्या Online Booking / Darshan वेबसाइट सेटिंग्ज सेव्ह झाल्या.');
+}
+function resetTempleBookings(){
+  if(!confirm('सर्व 20 मंदिरांच्या वेबसाइट सेटिंग्ज रिकाम्या करायच्या आहेत का?'))return;
+  siteSettings.templeBookings=defaultSiteSettings().templeBookings;
+  saveSiteSettingsLocal(); renderTempleBookingsAdmin(); renderTempleBookingsPublic();
+}
+
+function applyAllSiteSettings(){applySiteAppearance();applySiteHero();applySiteContact();applySiteBooking();SITE_QUICK_KEYS.forEach(applyQuickCard);applyCustomQuickOptions();renderTempleBookingsPublic();renderTempleBookingsAdmin();}
+function renderSiteEditor(){renderTempleBookingsAdmin();const a=siteSettings.appearance;for(const [id,val] of Object.entries({siteAccentColor:a.accent,siteGoldColor:a.gold,siteBgColor:a.bg,siteInkColor:a.ink,siteFontFamily:a.font,siteBaseFont:a.base,siteHeadingFont:a.heading,siteHeroBadgeInput:siteSettings.hero.badge,siteHeroTitleInput:siteSettings.hero.title,siteHeroSubInput:siteSettings.hero.sub,siteContactNameInput:siteSettings.contact.name,siteContactSubInput:siteSettings.contact.sub,siteContact1Input:siteSettings.contact.numbers[0],siteContact2Input:siteSettings.contact.numbers[1],siteContact3Input:siteSettings.contact.numbers[2],siteContactAddressInput:siteSettings.contact.address,siteBookingTitleInput:siteSettings.booking.title,siteBookingSubInput:siteSettings.booking.sub,siteBookingServicesInput:siteSettings.booking.services.join('\n')})){const e=document.getElementById(id);if(e)e.value=val;}const box=document.getElementById('siteQuickEditorList');if(box)box.innerHTML=SITE_QUICK_KEYS.map(k=>{const q=siteSettings.quick[k];return `<div class="site-quick-row"><div class="site-quick-icon">${esc(q.icon)}</div><div class="site-quick-fields"><input id="qtitle-${k}" value="${escAttr(q.title)}" placeholder="शीर्षक"><input id="qdesc-${k}" value="${escAttr(q.desc)}" placeholder="वर्णन"></div><div class="site-quick-actions"><button type="button" onclick="saveQuickCard('${k}')">💾</button><button type="button" onclick="toggleQuickCard('${k}')">${q.visible===false?'↩️ Restore':'🗑️ Hide'}</button></div></div>`}).join('');const cb=document.getElementById('customQuickEditorList');if(cb)cb.innerHTML=(siteSettings.customQuick||[]).map(q=>`<div class="site-quick-row"><div class="site-quick-icon">${esc(q.icon||'✨')}</div><div class="site-quick-fields"><input value="${escAttr(q.title||'')}" readonly><input value="${escAttr(q.target||'')}" readonly></div><div class="site-quick-actions"><button type="button" onclick="editCustomQuick('${q.id}')">✏️ Edit</button><button type="button" onclick="toggleCustomQuick('${q.id}')">${q.visible===false?'↩️ Restore':'👁️ Hide'}</button><button type="button" class="danger" onclick="deleteCustomQuick('${q.id}')">🗑️ Delete</button></div></div>`).join('')||'<div class="hint">अजून नवीन Website Option जोडलेला नाही.</div>'; }
+function saveSiteAppearance(){siteSettings.appearance={accent:siteAccentColor.value,gold:siteGoldColor.value,bg:siteBgColor.value,ink:siteInkColor.value,font:siteFontFamily.value,base:Number(siteBaseFont.value)||16,heading:Number(siteHeadingFont.value)||32};saveSiteSettingsLocal();applyAllSiteSettings();alert('✅ रंग, फॉन्ट आणि Font Size सेव्ह झाले.');}
+function resetSiteAppearance(){const d=defaultSiteSettings();siteSettings.appearance=d.appearance;saveSiteSettingsLocal();applyAllSiteSettings();renderSiteEditor();}
+function saveSiteHero(){siteSettings.hero={badge:siteHeroBadgeInput.value.trim()||'🕉️ पुरोहित सेवा',title:siteHeroTitleInput.value.trim(),sub:siteHeroSubInput.value.trim()};saveSiteSettingsLocal();applySiteHero();alert('✅ मुख्य पानाचा मजकूर सेव्ह झाला.');}
+function saveQuickCard(k){const q=siteSettings.quick[k];q.title=document.getElementById('qtitle-'+k).value.trim()||q.title;q.desc=document.getElementById('qdesc-'+k).value.trim()||q.desc;saveSiteSettingsLocal();applyQuickCard(k);renderSiteEditor();alert('✅ '+q.title+' अपडेट झाले.');}
+function toggleQuickCard(k){siteSettings.quick[k].visible=siteSettings.quick[k].visible===false;saveSiteSettingsLocal();applyQuickCard(k);renderSiteEditor();}
+function saveSiteContact(){siteSettings.contact={name:siteContactNameInput.value.trim(),sub:siteContactSubInput.value.trim(),numbers:[siteContact1Input.value.trim(),siteContact2Input.value.trim(),siteContact3Input.value.trim()],address:siteContactAddressInput.value.trim()};saveSiteSettingsLocal();applySiteContact();alert('✅ संपर्क माहिती सेव्ह झाली.');}
+function saveSiteBooking(){siteSettings.booking={title:siteBookingTitleInput.value.trim(),sub:siteBookingSubInput.value.trim(),services:siteBookingServicesInput.value.split(/\n/).map(x=>x.trim()).filter(Boolean)};saveSiteSettingsLocal();applySiteBooking();alert('✅ Booking माहिती सेव्ह झाली.');}
+function resetSiteBooking(){siteSettings.booking=defaultSiteSettings().booking;saveSiteSettingsLocal();applySiteBooking();renderSiteEditor();}
+applyAllSiteSettings();
+
+function exportAdminData(){const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='purohit-seva-backup.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000)}
+function importAdminDataPrompt(){const raw=prompt('Backup JSON येथे Paste करा:');if(!raw)return;try{const x=JSON.parse(raw);if(!x||!Array.isArray(x.aarti))throw 0;data=x;if(!data.stotra)data.stotra=[];if(!data.muhurats)data.muhurats=[];if(!data.shanka)data.shanka=[];if(!data.youtube)data.youtube=[];save();render();renderMuhuratOptions();renderAdminV2();alert('✅ Data Restore झाला.')}catch(e){alert('❌ JSON format चुकीचा आहे.')}}
+function resetAdminData(){if(!confirm('Default data restore करायचा आहे?'))return;localStorage.removeItem(KEY);location.reload()}
+</script>
+
+<!-- ===== FIREBASE LIVE UI SYNC ===== -->
+<script type="module">
+(function(){
+  window.addEventListener("firebase-public-update", function(e){
+    const d=e.detail||{};
+    const key=d.dataKey || ({aarti:"aarti", shubhMuhurt:"muhurats", stotra:"stotra", shanka:"shanka"}[d.collection]);
+    if(!key || !Array.isArray(d.items)) return;
+    applyFirebaseCollection(key,d.items);
+    try{
+      if(key==='aarti' && typeof window.renderAartiCollection==='function') window.renderAartiCollection();
+      if(key==='youtube'){ renderYoutubePublic(); renderYoutubeAdmin(); }
+      render();renderAdminV2();renderMuhuratOptions();renderShanka();
+    }catch(err){console.warn("Firebase UI refresh failed",err);}
+  });
+})();
+</script>
+
+<!-- ===== SECURE FIREBASE ADMIN GATE ===== -->
+<style>
+#secureAdminGate{display:none;position:fixed;inset:0;z-index:99999;background:rgba(28,12,5,.78);backdrop-filter:blur(8px);align-items:center;justify-content:center;padding:18px}
+#secureAdminGate.show{display:flex}
+.secure-admin-box{width:min(430px,100%);background:var(--paper,#fff);color:var(--ink,#2d1b12);border:1px solid var(--line,#ead7bc);border-radius:24px;padding:25px;box-shadow:0 30px 90px rgba(0,0,0,.3)}
+.secure-admin-box h2{margin:0 0 6px;color:var(--accent,#9f3f10)}
+.secure-admin-box p{margin:0 0 17px;color:var(--muted,#766254);font-size:13px}
+.secure-admin-box input{width:100%;padding:12px;border:1px solid var(--line,#ead7bc);border-radius:11px;margin:6px 0 11px;font:inherit}
+.secure-admin-actions{display:flex;gap:8px;flex-wrap:wrap}
+.secure-admin-error{min-height:22px;color:#a51f1f;font-size:13px;margin:4px 0}
+#adminPanelLocked{display:none!important}
+body.admin-unlocked #adminPanelLocked{display:block!important}
+body.admin-unlocked #secureAdminGate{display:none!important}
+</style>
+
+<div id="secureAdminGate" aria-hidden="true">
+  <div class="secure-admin-box">
+    <div style="font-size:34px">🔐</div>
+    <h2>Admin Login</h2>
+    <p>फक्त अधिकृत Firebase Admin account ला Dashboard उघडण्याची परवानगी आहे.</p>
+    <label>Email</label>
+    <input id="secureAdminEmail" type="email" autocomplete="username" placeholder="Admin Email">
+    <label>Password</label>
+    <input id="secureAdminPassword" type="password" autocomplete="current-password" placeholder="Password">
+    <div id="secureAdminError" class="secure-admin-error"></div>
+    <div class="secure-admin-actions">
+      <button class="btn" type="button" id="secureAdminLoginBtn">🔓 Login</button>
+      <button class="btn alt" type="button" id="secureAdminCancelBtn">बंद करा</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+(function(){
+  const gate=document.getElementById('secureAdminGate');
+  const err=document.getElementById('secureAdminError');
+  const login=document.getElementById('secureAdminLoginBtn');
+  const cancel=document.getElementById('secureAdminCancelBtn');
+
+  // IMPORTANT: Replace this with the Firebase Auth UID(s) that are allowed to administer the site.
+  // This is an extra client-side gate; Firestore Rules must ALSO enforce admin-only writes.
+  const ALLOWED_ADMIN_UIDS = [
+    "gq3LGY0kBLffFlbLMwfQfA3ENfh2"
+  ];
+
+  function openGate(){
+    gate.classList.add('show');
+    gate.setAttribute('aria-hidden','false');
+    setTimeout(()=>document.getElementById('secureAdminEmail')?.focus(),50);
+  }
+  function closeGate(){
+    gate.classList.remove('show');
+    gate.setAttribute('aria-hidden','true');
+    err.textContent='';
+  }
+  window.openSecureAdminLogin=openGate;
+
+  cancel.addEventListener('click',closeGate);
+  gate.addEventListener('click',e=>{if(e.target===gate)closeGate;});
+  login.addEventListener('click',async()=>{
+    err.textContent='';
+    const email=document.getElementById('secureAdminEmail').value.trim();
+    const pass=document.getElementById('secureAdminPassword').value;
+    if(!email||!pass){err.textContent='Email आणि Password दोन्ही भरा.';return;}
+    try{
+      if(!window.firebaseAdminLogin) throw new Error('Firebase अजून configure केलेले नाही.');
+      const cred=await window.firebaseAdminLogin(email,pass);
+      const uid=cred.user.uid;
+      if(!ALLOWED_ADMIN_UIDS.includes(uid)){
+        await window.firebaseAdminLogout();
+        throw new Error('हा account Admin म्हणून अधिकृत नाही.');
+      }
+      document.body.classList.add('admin-unlocked');
+      closeGate();
+      if(typeof window.showAdminPanel==='function') window.showAdminPanel();
+    }catch(e){
+      err.textContent='❌ '+(e?.message||'Login अयशस्वी.');
+    }
+  });
+
+  window.addEventListener('firebase-auth-change',e=>{
+    const user=e.detail?.user;
+    if(!user){
+      document.body.classList.remove('admin-unlocked');
+      return;
+    }
+    if(ALLOWED_ADMIN_UIDS.includes(user.uid)){
+      document.body.classList.add('admin-unlocked');
+    }else{
+      window.firebaseAdminLogout?.();
+    }
+  });
+})();
+</script>
+
+
+<script>
+/* ===== ADMIN ACTION HANDLERS (stable) ===== */
+(function(){
+  document.addEventListener('click',function(e){
+    const edit=e.target.closest?.('.muhurat-edit-btn');
+    if(edit){
+      e.preventDefault(); e.stopPropagation();
+      try{ editMuhuratCategory(decodeURIComponent(edit.dataset.muhuratTitle||'')); }catch(err){ console.error(err); }
+      return;
+    }
+    const del=e.target.closest?.('.muhurat-delete-btn');
+    if(del){
+      e.preventDefault(); e.stopPropagation();
+      try{ deleteMuhuratCategory(decodeURIComponent(del.dataset.muhuratTitle||'')); }catch(err){ console.error(err); }
+      return;
+    }
+
+    // आरती / स्तोत्र / शंका: Admin list मधील Edit आणि Delete actions
+    // renderAdminV2() मधून data-* attributes ने जोडलेले आहेत.
+    const genericEdit=e.target.closest?.('.edit-admin-btn[data-edit-type]');
+    if(genericEdit){
+      e.preventDefault(); e.stopPropagation();
+      const type=genericEdit.dataset.editType;
+      const index=Number(genericEdit.dataset.editIndex);
+      if(!Number.isInteger(index)) return;
+      try{ startAdminEdit(type,index); }catch(err){ console.error('Admin edit failed:',err); }
+      return;
+    }
+
+    const genericDelete=e.target.closest?.('.admin-delete-btn[data-delete-type]');
+    if(genericDelete){
+      e.preventDefault(); e.stopPropagation();
+      const type=genericDelete.dataset.deleteType;
+      const index=Number(genericDelete.dataset.deleteIndex);
+      if(!Number.isInteger(index)) return;
+      try{ adminDelete(type,index); }catch(err){ console.error('Admin delete failed:',err); }
+      return;
+    }
+  },true);
+})();
+</script>
+
+<script>
+(function(){
+  const DEFAULT_UPI_ID = '9860157041@ibl';
+  const valid = v => /^[A-Za-z0-9._-]{2,256}@[A-Za-z0-9._-]{2,64}$/.test(v);
+
+  async function load(){
+    const input = document.getElementById('adminUpiId');
+    if(!input) return;
+    input.value = DEFAULT_UPI_ID;
+    try{
+      if(window.firebaseGetUpiId){
+        const v = await window.firebaseGetUpiId();
+        if(valid(v)) input.value = v;
+      }
+    }catch(e){}
+  }
+
+  document.addEventListener('DOMContentLoaded', function(){
+    const input = document.getElementById('adminUpiId');
+    const save = document.getElementById('saveAdminUpiBtn');
+    const status = document.getElementById('adminUpiStatus');
+
+    load();
+
+    if(save){
+      save.addEventListener('click', async function(){
+        const v = (input?.value || '').trim();
+        if(!valid(v)){
+          if(status) status.textContent = '❌ वैध UPI ID टाका.';
+          return;
+        }
+        if(!window.firebaseAdminUser || !window.firebaseConsoleReady){
+          if(status) status.textContent = '❌ आधी अधिकृत Firebase Admin Login करा.';
+          return;
+        }
+        try{
+          await window.firebaseSaveUpiId(v);
+          if(status) status.textContent = '✅ UPI ID Firebase मध्ये सुरक्षितपणे सेव्ह झाली.';
+        }catch(e){
+          if(status) status.textContent = '❌ UPI ID सेव्ह झाली नाही: ' + (e?.message || 'Error');
+        }
+      });
+    }
+  });
+})();
+</script>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => { navigator.serviceWorker.register('/sw.js', {scope: '/'}).catch(() => {}); });
+}
+</script>
+
+<script>
+/* Universal phone-number click: any visible Indian mobile number opens the dialer. */
+(function(){
+  function normalizePhoneDigits(value){
+    if(!value) return '';
+    const map={'०':'0','१':'1','२':'2','३':'3','४':'4','५':'5','६':'6','७':'7','८':'8','९':'9'};
+    return String(value).replace(/[०-९]/g, ch => map[ch]).replace(/\D/g,'');
+  }
+  function phoneFromText(value){
+    const raw=String(value||'').replace(/[०-९]/g, ch => ({'०':'0','१':'1','२':'2','३':'3','४':'4','५':'5','६':'6','७':'7','८':'8','९':'9'}[ch]));
+    const m=raw.match(/(?:\+?91[\s-]?)?[6-9]\d{9}/);
+    if(!m) return '';
+    let d=normalizePhoneDigits(m[0]);
+    if(d.length===12 && d.indexOf('91')===0) return '+'+d;
+    if(d.length===10) return '+91'+d;
+    return '';
+  }
+  document.addEventListener('click', function(ev){
+    if(ev.defaultPrevented) return;
+    const a=ev.target.closest && ev.target.closest('a[href^="tel:"]');
+    if(a) return; // Existing tel links already do exactly what we need.
+    const el=ev.target.closest && ev.target.closest('button,[role="button"],div,span,p,li,td,strong,b,label');
+    if(!el) return;
+    const phone=phoneFromText(el.textContent);
+    if(!phone) return;
+    // Only treat a compact element as a phone-number target; avoid dialing whole page sections.
+    const compact=el.textContent.trim().replace(/\s+/g,' ');
+    if(compact.length>80 || !phoneFromText(compact)) return;
+    ev.preventDefault();
+    ev.stopPropagation();
+    window.location.href='tel:'+phone;
+  }, true);
+})();
+</script>
+</body>
+</html>
+
