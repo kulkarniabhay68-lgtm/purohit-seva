@@ -35,6 +35,11 @@ jobs:
           unzip -q purohit-seva-mobile-apk-pack-v10-notification-fixed.zip -d pack
           unzip -q pack/purohit-seva-android-project.zip
 
+      - name: Fix Android Gradle Plugin
+        working-directory: purohit-seva-android
+        run: |
+          sed -i "s/id 'com.android.application' version '8.6.1'/id 'com.android.application' version '8.9.1'/" build.gradle
+
       - name: Enable AndroidX
         working-directory: purohit-seva-android
         run: |
